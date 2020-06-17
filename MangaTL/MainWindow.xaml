@@ -1,0 +1,58 @@
+﻿<Window x:Class="MangaTL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MangaTL"
+        xmlns:viewModels="clr-namespace:MangaTL.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:interactivity="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        Name="GeneralWindow"
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowVM} }">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="KeyDown">
+            <interactivity:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="KeyUp">
+            <interactivity:InvokeCommandAction Command="{Binding KeyUpCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseDown">
+            <interactivity:InvokeCommandAction Command="{Binding MouseDownCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseUp">
+            <interactivity:InvokeCommandAction Command="{Binding MouseUpCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseMove">
+            <interactivity:InvokeCommandAction Command="{Binding MouseMoveCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Menu HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Grid.Row="0" Grid.Column="0"
+              Grid.ColumnSpan="2">
+            <MenuItem Header="File" Height="25">
+                <MenuItem Header="New Chapter" />
+                <MenuItem Header="Save" />
+                <Separator />
+                <MenuItem Header="Exit" />
+            </MenuItem>
+        </Menu>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Test, FallbackValue=Test}"/>
+        <local:ImageViewer DataContext="{Binding Image}" Grid.Row="1" Grid.Column="0" />
+        <local:ToolsMenu  Grid.Row="1" Grid.Column="1" DataContext="{Binding Tools}" />
+        <!--<Grid Grid.Row="1" Grid.Column="1">
+            
+        </Grid>-->
+    </Grid>
+</Window>
