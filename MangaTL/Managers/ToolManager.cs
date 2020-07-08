@@ -4,6 +4,8 @@ namespace MangaTL.Managers
 {
     public static class ToolManager
     {
+
+        //TODO : More stable working class
         private static ToolControlVM _currentTool;
 
         private static ToolControlVM _fastTool;

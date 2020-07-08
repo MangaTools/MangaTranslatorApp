@@ -1,20 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MangaTL.Core
 {
+    [Serializable]
     public class Chapter
     {
-        public Page[] Pages;
+        public List<Page> Pages { get; private set; }
 
-
-        public void Save()
+        public Chapter(string[] cleanedImagesPath, string[] tlImagePath)
         {
-
+            Pages = cleanedImagesPath.Select((t, i) => new Page(t, tlImagePath[i])).ToList();
         }
 
-        public static Chapter Load()
+        public void Save(string path)
         {
-            throw new NotImplementedException();
+            var formatter = new BinaryFormatter();
+
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, this);
+            }
+        }
+
+        public static Chapter Load(string path)
+        {
+            var formatter = new BinaryFormatter();
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                return (Chapter)formatter.Deserialize(fs);
+            }
         }
 
         public string ConvertToJSON()

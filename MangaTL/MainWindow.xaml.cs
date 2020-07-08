@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MangaTL.Managers;
 using MangaTL.ViewModels;
 
 namespace MangaTL
@@ -11,6 +12,7 @@ namespace MangaTL
         public MainWindow()
         {
             InitializeComponent();
+            MouseManager.SetMainWindow(PageViewer);
             DataContext = new MainWindowVM(GeneralWindow);
         }
     }

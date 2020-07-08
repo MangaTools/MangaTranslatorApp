@@ -1,8 +1,11 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
-
+using MangaTL.Controls;
+using MangaTL.Core;
 using MangaTL.Managers;
-
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -13,8 +16,16 @@ namespace MangaTL.ViewModels
         private ICommand _keyDownCommand;
 
         private ICommand _keyUpCommand;
+
+        private string _test;
+
+        private Window _window;
+
+        private Chapter chapter;
+        private int currentPage;
         public ImageViewerVM Image { get; set; }
         public ToolsMenuVM Tools { get; set; }
+        private Chapter loadedChapter { get; set; }
 
         public ICommand KeyDownCommand
         {
@@ -34,21 +45,29 @@ namespace MangaTL.ViewModels
 
         public object MouseMoveCommand { get; }
 
-        private string _test;
         public string Test
         {
             get => _test;
             set => SetProperty(ref _test, value);
         }
 
-        private Window _window;
+        public ICommand NewChapterCommand { get; }
+
+        public ICommand SaveCommand { get; }
+
+        public ICommand ExportCommand { get; }
+
+        public ICommand ExitCommand { get; }
+
+        public ICommand OpenCommand { get; }
+
 
         public MainWindowVM(Window window)
         {
             _window = window;
-            MouseManager.SetMainWindow(_window);
             Image = new ImageViewerVM();
             Tools = new ToolsMenuVM(Image);
+
 
             KeyUpCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyReleased(x.Key));
             KeyDownCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyPressed(x.Key));
@@ -56,7 +75,91 @@ namespace MangaTL.ViewModels
             MouseUpCommand = new DelegateCommand<MouseButtonEventArgs>(MouseManager.SetMouseReleased);
             MouseMoveCommand = new DelegateCommand<MouseEventArgs>(MouseManager.MoveMouse);
             MouseManager.MouseMove += x => Test = $"{MouseManager.MousePosition.X} {MouseManager.MousePosition.Y}";
+            KeyManager.KeyDown += x =>
+            {
+                switch (x)
+                {
+                    case Key.Left:
+                        PreviousPage();
+                        break;
+                    case Key.Right:
+                        NextPage();
+                        break;
+                }
+            };
+            ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
+            ExportCommand = new DelegateCommand(() =>
+            {
+                if (chapter == null || chapter.Pages.Count == 0)
+                    return;
+                var exportFileDialog = new SaveFileDialog
+                {
+                    AddExtension = true,
+                    DefaultExt = "json",
+                    Title = "Export",
+                    OverwritePrompt = true
+                };
+                if (exportFileDialog.ShowDialog() == true)
+                    File.WriteAllText(exportFileDialog.FileName, chapter.ConvertToJSON());
+            });
+            OpenCommand = new DelegateCommand(() =>
+            {
+                var openFileDialog = new OpenFileDialog
+                {
+                    DefaultExt = "mtl",
+                    Title = "Open",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Multiselect = false
+                };
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    chapter = Chapter.Load(openFileDialog.FileName);
+                    currentPage = 0;
+                    Image.LoadPage(chapter.Pages.FirstOrDefault());
+                }
+            });
+            SaveCommand = new DelegateCommand(() =>
+            {
+                if (chapter == null || chapter.Pages.Count == 0)
+                    return;
+                var saveFileDialog = new SaveFileDialog
+                {
+                    AddExtension = true,
+                    DefaultExt = "mtl",
+                    Title = "Save",
+                    OverwritePrompt = true
+                };
+                if (saveFileDialog.ShowDialog() == true)
+                    chapter.Save(saveFileDialog.FileName);
+            });
+            NewChapterCommand = new DelegateCommand(() =>
+            {
+                var newChapterDialog = new NewChapterDialog();
+                if (newChapterDialog.ShowDialog() != true)
+                    return;
+                chapter = new Chapter(newChapterDialog.cleanedPath, newChapterDialog.tlPath);
+                currentPage = 0;
+                Image.LoadPage(chapter.Pages.FirstOrDefault());
+            });
         }
 
+        private void NextPage()
+        {
+            if (chapter != null && currentPage + 1 < chapter.Pages.Count)
+            {
+                currentPage++;
+                Image.LoadPage(chapter.Pages[currentPage]);
+            }
+        }
+
+        private void PreviousPage()
+        {
+            if (chapter != null && currentPage > 0)
+            {
+                currentPage--;
+                Image.LoadPage(chapter.Pages[currentPage]);
+            }
+        }
     }
 }

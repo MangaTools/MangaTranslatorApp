@@ -20,7 +20,7 @@ namespace MangaTL.ViewModels
 
         public ToolsMenuVM(ImageViewerVM imageVM)
         {
-            _tools = new ObservableCollection<ToolControlVM> { new HandTool(imageVM), new ResizeTool(imageVM) };
+            _tools = new ObservableCollection<ToolControlVM> { new HandTool(imageVM), new ResizeTool(imageVM), new TextTool(imageVM) };
         }
     }
 }

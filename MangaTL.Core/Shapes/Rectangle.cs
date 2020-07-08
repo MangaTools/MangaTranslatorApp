@@ -7,6 +7,11 @@ namespace MangaTL.Core.Shapes
     {
         public SizeF Size { get; set; }
 
+        public Rectangle(int width, int height)
+        {
+            Size = new SizeF(width, height);
+        }
+
         public List<RectangleF> GetLines(float height)
         {
             var result = new List<RectangleF>();

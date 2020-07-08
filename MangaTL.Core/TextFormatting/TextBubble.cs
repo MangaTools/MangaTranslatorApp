@@ -6,16 +6,18 @@ using System.Text;
 using System.Windows.Forms;
 
 using MangaTL.Core.Shapes;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace MangaTL.Core
 {
+    [Serializable]
     public class TextBubble
     {
         private readonly string calculatedText = "";
         private readonly bool isTextCalculated = false;
-        public PointF Position;
+        public Point Position;
         public float Rotation;
-        public SplitSettings Settings;
+        public SplitSettings Settings = new SplitSettings();
         public IShape Shape;
         public TextStyle Style;
         public string TextContent;

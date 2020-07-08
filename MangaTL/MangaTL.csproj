@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -71,8 +72,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\BubbleControl.xaml.cs">
-      <DependentUpon>BubbleControl.xaml</DependentUpon>
+    <Compile Include="Controls\NewChapterDialog.xaml.cs">
+      <DependentUpon>NewChapterDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ObjectPropertyControl.xaml.cs">
       <DependentUpon>ObjectPropertyControl.xaml</DependentUpon>
@@ -98,11 +99,12 @@
     <Compile Include="ViewModels\ToolsMenuVM.cs" />
     <Compile Include="ViewModels\Tools\HandTool.cs" />
     <Compile Include="ViewModels\Tools\ResizeTool.cs" />
-    <Page Include="Controls\BubbleControl.xaml">
+    <Compile Include="ViewModels\Tools\TextTool.cs" />
+    <Page Include="Controls\ImageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ImageViewer.xaml">
+    <Page Include="Controls\NewChapterDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

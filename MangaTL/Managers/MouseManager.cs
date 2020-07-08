@@ -37,28 +37,28 @@ namespace MangaTL.Managers
             }
         }
 
-        private static Window _mainWindow;
+        private static IInputElement _frame;
 
-        public static void SetMainWindow(Window control)
+        public static void SetMainWindow(IInputElement control)
         {
-            _mainWindow = control;
+            _frame = control;
         }
 
         public static void SetMousePressed(MouseButtonEventArgs args)
         {
             MousePressed?.Invoke(args);
-            _mainWindow.CaptureMouse();
+            _frame.CaptureMouse();
         }
 
         public static void SetMouseReleased(MouseButtonEventArgs args)
         {
             MouseReleased?.Invoke(args);
-            _mainWindow.ReleaseMouseCapture();
+            _frame.ReleaseMouseCapture();
         }
 
         public static void MoveMouse(MouseEventArgs args)
         {
-            MousePosition = args.GetPosition(_mainWindow);
+            MousePosition = args.GetPosition(_frame);
         }
 
         public static event Action<MouseButtonEventArgs> MousePressed;
@@ -66,23 +66,5 @@ namespace MangaTL.Managers
         public static event Action<Point> MouseMove;
 
         public static event Action<ControlType> MouseOverChanged;
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetCursorPos(ref Win32Point pt);
-
-        private static Point GetMousePosition()
-        {
-            var w32Mouse = new Win32Point();
-            GetCursorPos(ref w32Mouse);
-            return new Point(w32Mouse.X, w32Mouse.Y);
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct Win32Point
-        {
-            public readonly int X;
-            public readonly int Y;
-        }
     }
 }

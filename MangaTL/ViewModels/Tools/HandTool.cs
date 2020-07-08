@@ -26,6 +26,7 @@ namespace MangaTL.ViewModels.Tools
         private void MoveImage(Point args)
         {
             _image.MoveImage(args);
+            _image.MoveBubbles(args);
         }
 
         public HandTool(ImageViewerVM viewer) : base(Key.H, new List<Key> { Key.Space })

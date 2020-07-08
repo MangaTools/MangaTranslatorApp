@@ -37,7 +37,7 @@ namespace MangaTL.ViewModels.Tools
                 _position = MouseManager.MousePosition;
             }
 
-            _image.ScaleImage(_position, positionDelta.X / 250);
+            _image.ScaleRegion(_position, positionDelta.X / 500);
         }
     }
 }

@@ -26,7 +26,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Rectangle>
-        <Image Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Height="{Binding Height}" Width="{Binding Width}"
+        <Image Canvas.Left="{Binding X}" RenderOptions.BitmapScalingMode="NearestNeighbor" Canvas.Top="{Binding Y}" Height="{Binding Height}" Width="{Binding Width}"
                 Source="{Binding Image}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseWheel">
@@ -34,6 +34,29 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Image>
-
+        <ItemsControl ItemsSource="{Binding BubbleCollection}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Text}"
+                               FontFamily="{Binding FontFamily}"
+                               TextAlignment="{Binding Alignment}"
+                               FontSize="{Binding Size}"
+                               Foreground="{Binding ForegroundColor}"
+                               Width="{Binding Width}"
+                               Height="{Binding Height}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Canvas>
 </UserControl>

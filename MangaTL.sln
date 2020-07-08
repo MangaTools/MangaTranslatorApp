@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaTL", "MangaTL\MangaTL.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaTL.Core", "MangaTL.Core\MangaTL.Core.csproj", "{60AC72D3-F3CD-415E-8ECB-17F0725819EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaTL.Core.Tests", "MangaTL.Core.Tests\MangaTL.Core.Tests.csproj", "{21F969F2-B644-4AB0-929E-11E92F72AE60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{60AC72D3-F3CD-415E-8ECB-17F0725819EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60AC72D3-F3CD-415E-8ECB-17F0725819EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60AC72D3-F3CD-415E-8ECB-17F0725819EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21F969F2-B644-4AB0-929E-11E92F72AE60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21F969F2-B644-4AB0-929E-11E92F72AE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21F969F2-B644-4AB0-929E-11E92F72AE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21F969F2-B644-4AB0-929E-11E92F72AE60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
