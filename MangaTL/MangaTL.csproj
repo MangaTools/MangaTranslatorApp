@@ -72,7 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BitmapImageExtesions.cs" />
+    <Compile Include="Extensions\BitmapImageExtesions.cs" />
     <Compile Include="Controls\NewChapterDialog.xaml.cs">
       <DependentUpon>NewChapterDialog.xaml</DependentUpon>
     </Compile>
@@ -183,5 +183,6 @@
       <Name>MangaTL.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
