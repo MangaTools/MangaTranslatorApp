@@ -105,9 +105,9 @@ namespace MangaTL.ViewModels
             return new System.Drawing.Point((int)Math.Floor(newPos.X), (int)Math.Floor(newPos.Y));
         }
 
-        public void AddBubble()
+        public async void AddBubble()
         {
-            var bubbleModel = currentPage.CreateBubble(TextStyle.StandartStyle, GetImagePoint(), 32);
+            var bubbleModel = await currentPage.CreateBubble(TextStyle.StandartStyle, GetImagePoint(), 32);
 
             var bubble = new BubbleVM(bubbleModel, _scale, new Point(X, Y));
             BubbleCollection.Add(bubble);
