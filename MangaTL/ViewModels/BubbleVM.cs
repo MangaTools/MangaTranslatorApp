@@ -82,22 +82,18 @@ namespace MangaTL.ViewModels
         public BubbleVM(TextBubble bubbleModel, double scale, Point offset)
         {
             this.bubbleModel = bubbleModel;
-            FontFamily = new FontFamily(bubbleModel.Style.Font.Name);
+            FontFamily = new FontFamily(bubbleModel.Style.FontName);
             ForegroundColor = new SolidColorBrush(Color.FromRgb(bubbleModel.Style.Color.R,
                                                                 bubbleModel.Style.Color.G,
                                                                 bubbleModel.Style.Color.B));
-            Size = bubbleModel.Style.Font.Size * scale;
-            Width = bubbleModel.Shape.Size.Width * scale;
-            Height = bubbleModel.Shape.Size.Height * scale;
-            X = offset.X + bubbleModel.Position.X * scale;
-            Y = offset.Y + bubbleModel.Position.Y * scale;
             Text = bubbleModel.TextContent;
             Alignment = TextAlignment.Center;
+            UpdateVisual(scale, offset);
         }
 
         public void UpdateVisual(double scale, Point offset)
         {
-            Size = bubbleModel.Style.Font.Size * scale;
+            Size = bubbleModel.Style.FontSize * scale;
             Width = bubbleModel.Shape.Size.Width * scale;
             Height = bubbleModel.Shape.Size.Height * scale;
             X = offset.X + bubbleModel.Position.X * scale;

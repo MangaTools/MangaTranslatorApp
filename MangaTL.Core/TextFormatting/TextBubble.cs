@@ -4,9 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
 using MangaTL.Core.Shapes;
-using Rectangle = System.Drawing.Rectangle;
 
 namespace MangaTL.Core
 {
@@ -33,10 +31,10 @@ namespace MangaTL.Core
             var totalWidth = sizes.Sum(x => x.Width) + (sizes.Count - 1) * spaceSize.Width;
 
             var lines = Shape.GetLines(sizes.First().Height);
-            var centralIndex = (int)Math.Ceiling((float)lines.Count / 2);
+            var centralIndex = (int) Math.Ceiling((float) lines.Count / 2);
 
             var i = 1;
-            var remainingWidth = (float)totalWidth;
+            var remainingWidth = (float) totalWidth;
             while (remainingWidth > 0 && centralIndex - i >= 0)
             {
                 remainingWidth -= lines[centralIndex - i].Width * 2;
@@ -88,8 +86,8 @@ namespace MangaTL.Core
                             break;
                         }
                     }
-
                 }
+
                 result.Append("\n");
             }
 
