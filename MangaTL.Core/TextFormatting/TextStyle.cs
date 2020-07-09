@@ -17,9 +17,9 @@ namespace MangaTL.Core
         {
             Alignment = Alignment.Center,
             Color = Color.Black,
-            Font = new Font("Arial", 2),
-            MaxFontSize = 5,
-            MinFontSize = 1,
+            Font = new Font("Arial", 40),
+            MaxFontSize = 50,
+            MinFontSize = 20,
             Name = "Standart"
         };
     }

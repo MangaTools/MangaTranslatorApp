@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BitmapImageExtesions.cs" />
     <Compile Include="Controls\NewChapterDialog.xaml.cs">
       <DependentUpon>NewChapterDialog.xaml</DependentUpon>
     </Compile>

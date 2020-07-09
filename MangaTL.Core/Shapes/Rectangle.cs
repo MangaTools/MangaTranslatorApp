@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace MangaTL.Core.Shapes
 {
+    [Serializable]
     public class Rectangle : IShape
     {
         public SizeF Size { get; set; }

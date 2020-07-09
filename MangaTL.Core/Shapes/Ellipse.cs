@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace MangaTL.Core.Shapes
 {
+    [Serializable]
     public class Ellipse : IShape
     {
         public SizeF Size { get; set; }

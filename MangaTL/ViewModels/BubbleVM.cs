@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+
 using MangaTL.Core;
+
 using Prism.Mvvm;
 
 namespace MangaTL.ViewModels
@@ -8,7 +10,6 @@ namespace MangaTL.ViewModels
     public class BubbleVM : BindableBase
     {
         private FontFamily _fontFamily;
-        private TextBubble bubbleModel;
 
         private SolidColorBrush _foregroundColor;
         private double _height;
@@ -22,11 +23,7 @@ namespace MangaTL.ViewModels
         private double _width;
         private double _x;
         private double _y;
-
-        public BubbleVM(TextBubble bubbleModel)
-        {
-            this.bubbleModel = bubbleModel;
-        }
+        private TextBubble bubbleModel;
 
         public double X
         {
@@ -80,6 +77,31 @@ namespace MangaTL.ViewModels
         {
             get => _height;
             set => SetProperty(ref _height, value);
+        }
+
+        public BubbleVM(TextBubble bubbleModel, double scale, Point offset)
+        {
+            this.bubbleModel = bubbleModel;
+            FontFamily = new FontFamily(bubbleModel.Style.Font.Name);
+            ForegroundColor = new SolidColorBrush(Color.FromRgb(bubbleModel.Style.Color.R,
+                                                                bubbleModel.Style.Color.G,
+                                                                bubbleModel.Style.Color.B));
+            Size = bubbleModel.Style.Font.Size * scale;
+            Width = bubbleModel.Shape.Size.Width * scale;
+            Height = bubbleModel.Shape.Size.Height * scale;
+            X = offset.X + bubbleModel.Position.X * scale;
+            Y = offset.Y + bubbleModel.Position.Y * scale;
+            Text = bubbleModel.TextContent;
+            Alignment = TextAlignment.Center;
+        }
+
+        public void UpdateVisual(double scale, Point offset)
+        {
+            Size = bubbleModel.Style.Font.Size * scale;
+            Width = bubbleModel.Shape.Size.Width * scale;
+            Height = bubbleModel.Shape.Size.Height * scale;
+            X = offset.X + bubbleModel.Position.X * scale;
+            Y = offset.Y + bubbleModel.Position.Y * scale;
         }
     }
 }

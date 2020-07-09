@@ -97,7 +97,8 @@ namespace MangaTL.ViewModels
                     AddExtension = true,
                     DefaultExt = "json",
                     Title = "Export",
-                    OverwritePrompt = true
+                    OverwritePrompt = true,
+                    Filter = "json files (*.json) | *.json"
                 };
                 if (exportFileDialog.ShowDialog() == true)
                     File.WriteAllText(exportFileDialog.FileName, chapter.ConvertToJSON());
@@ -106,11 +107,12 @@ namespace MangaTL.ViewModels
             {
                 var openFileDialog = new OpenFileDialog
                 {
-                    DefaultExt = "mtl",
+                    DefaultExt = "tlm",
                     Title = "Open",
                     CheckFileExists = true,
                     CheckPathExists = true,
-                    Multiselect = false
+                    Multiselect = false,
+                    Filter = "TLM files (*.tlm) | *.tlm"
                 };
                 if (openFileDialog.ShowDialog() == true)
                 {
@@ -126,9 +128,10 @@ namespace MangaTL.ViewModels
                 var saveFileDialog = new SaveFileDialog
                 {
                     AddExtension = true,
-                    DefaultExt = "mtl",
+                    DefaultExt = "tlm",
                     Title = "Save",
-                    OverwritePrompt = true
+                    OverwritePrompt = true,
+                    Filter = "TLM files (*.tlm) | *.tlm"
                 };
                 if (saveFileDialog.ShowDialog() == true)
                     chapter.Save(saveFileDialog.FileName);
