@@ -7,7 +7,7 @@ namespace MangaTL.Core
     public class TextStyle
     {
         public string FontName;
-        public float FontSize;
+        public double FontSize;
         internal Font Font;
         public bool Bold;
         public bool Italic;
@@ -21,7 +21,7 @@ namespace MangaTL.Core
         {
             Alignment = Alignment.Center,
             Color = Color.Black,
-            Font = new Font("Arial", 40),
+            Font = new Font("Arial", 40, GraphicsUnit.Point),
             FontName = "Arial",
             Bold = false,
             Italic = false,

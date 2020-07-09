@@ -93,7 +93,7 @@ namespace MangaTL.ViewModels
 
         public void UpdateVisual(double scale, Point offset)
         {
-            Size = bubbleModel.Style.FontSize * scale;
+            Size = bubbleModel.Style.FontSize / 0.75d * scale;
             Width = bubbleModel.Shape.Size.Width * scale;
             Height = bubbleModel.Shape.Size.Height * scale;
             X = offset.X + bubbleModel.Position.X * scale;
