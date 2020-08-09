@@ -11,20 +11,20 @@ namespace MangaTL.ViewModels.Tools
         private bool _first = true;
         private Point _position;
 
-        public ResizeTool(ImageViewerVM image) : base(Key.Z, new List<Key> {Key.LeftCtrl, Key.Space})
+        public ResizeTool(ImageViewerVM image) : base(new List<Key> {Key.Z}, new List<Key> {Key.LeftCtrl, Key.Space})
         {
             _image = image;
         }
 
-        public override void DoAction()
+        protected override void DoAction()
         {
-            InAction = true;
+            base.DoAction();
             MouseManager.MouseMove += Zoom;
         }
 
-        public override void StopAction()
+        protected override void StopAction()
         {
-            InAction = false;
+            base.StopAction();
             MouseManager.MouseMove -= Zoom;
             _first = true;
         }

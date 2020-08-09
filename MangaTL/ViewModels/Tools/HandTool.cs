@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-
 using MangaTL.Managers;
 
 namespace MangaTL.ViewModels.Tools
@@ -11,15 +9,20 @@ namespace MangaTL.ViewModels.Tools
     {
         private readonly ImageViewerVM _image;
 
-        public override void DoAction()
+        public HandTool(ImageViewerVM viewer) : base(new List<Key> {Key.H}, new List<Key> {Key.Space})
         {
-            InAction = true;
+            _image = viewer;
+        }
+
+        protected override void DoAction()
+        {
+            base.DoAction();
             MouseManager.MouseMove += MoveImage;
         }
 
-        public override void StopAction()
+        protected override void StopAction()
         {
-            InAction = false;
+            base.StopAction();
             MouseManager.MouseMove -= MoveImage;
         }
 
@@ -27,11 +30,6 @@ namespace MangaTL.ViewModels.Tools
         {
             _image.MoveImage(args);
             _image.MoveBubbles(args);
-        }
-
-        public HandTool(ImageViewerVM viewer) : base(Key.H, new List<Key> { Key.Space })
-        {
-            _image = viewer;
         }
     }
 }

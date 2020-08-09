@@ -13,6 +13,7 @@ namespace MangaTL
         {
             InitializeComponent();
             MouseManager.SetMainWindow(PageViewer);
+            ToolManager.Start();
             DataContext = new MainWindowVM(GeneralWindow);
         }
     }

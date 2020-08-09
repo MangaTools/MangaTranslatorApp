@@ -1,68 +1,138 @@
-﻿using MangaTL.ViewModels;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+using MangaTL.ViewModels;
 
 namespace MangaTL.Managers
 {
     public static class ToolManager
     {
+        private static ToolControlVM activeTool;
+        private static ActiveToolType type;
 
-        //TODO : More stable working class
-        private static ToolControlVM _currentTool;
+        private static ToolControlVM preferredFastTool;
+        private static ToolControlVM preferredHotkeyTool;
 
-        private static ToolControlVM _fastTool;
+        private static readonly HashSet<Key> PressedKeys = new HashSet<Key>();
 
-        public static ToolControlVM CurrentTool
+        private static bool started;
+
+        private static SortedList<List<Key>, ToolControlVM> fastKeys;
+
+        private static SortedList<List<Key>, ToolControlVM> hotkeys;
+
+        public static void AddTool(ToolControlVM vm, List<Key> shortcut, List<Key> fastKeysVm)
         {
-            get => _currentTool;
-            set
+            if (!started)
+                return;
+
+            if (fastKeysVm != null && fastKeysVm.Count != 0)
+                fastKeys[fastKeysVm] = vm;
+            if (shortcut != null && shortcut.Count != 0)
+                hotkeys[shortcut]= vm;
+        }
+
+        public static void Start()
+        {
+            if (started)
+                return;
+
+            // comparer by descending
+            var defComparer = Comparer<List<Key>>.Create((a, b) => b.Count.CompareTo(a.Count));
+
+            fastKeys = new SortedList<List<Key>, ToolControlVM>(defComparer);
+            hotkeys = new SortedList<List<Key>, ToolControlVM>(defComparer);
+
+            started = true;
+            KeyManager.KeyDown += KeyDown;
+            KeyManager.KeyUp += KeyUp;
+        }
+
+        private static void RecalculateTools()
+        {
+            foreach (var toolControlVm in fastKeys)
             {
-                if (_currentTool == value)
+                var pressed = toolControlVm.Key.All(key => PressedKeys.Contains(key));
+                if (!pressed)
+                    continue;
+
+                preferredFastTool = toolControlVm.Value;
+                break;
+            }
+
+            foreach (var toolControlVm in hotkeys)
+            {
+                var pressed = toolControlVm.Key.All(key => PressedKeys.Contains(key));
+                if (!pressed)
+                    continue;
+
+                preferredHotkeyTool = toolControlVm.Value;
+                break;
+            }
+
+            ChooseTool();
+        }
+
+        private static void ChooseTool()
+        {
+            // If current tool is fast
+            if (type == ActiveToolType.FastKey)
+            {
+                // If same tool is preferred
+                if (activeTool == preferredFastTool)
                     return;
-                if (_currentTool != null)
+                // If new fast tool is more preferred
+                if (preferredFastTool != null)
                 {
-                    if (_currentTool.InAction)
-                        _currentTool.StopAction();
-                    _currentTool.Pressed = false;
+                    ApplyTool(preferredFastTool, ActiveToolType.FastKey);
+                    return;
                 }
 
-                _currentTool = value;
-                _currentTool.Pressed = true;
+                // If no fast tool is preferred
+                ApplyTool(preferredHotkeyTool, ActiveToolType.Hotkey);
+            }
+            // If current tool is Hotkey tool
+            else
+            {
+                // If now we have fast tool preferred
+                if (preferredFastTool != null)
+                {
+                    ApplyTool(preferredFastTool, ActiveToolType.FastKey);
+                    return;
+                }
+
+                // If now we have new hotkey tool
+                if (activeTool != preferredHotkeyTool && preferredHotkeyTool != null)
+                    ApplyTool(preferredHotkeyTool, ActiveToolType.Hotkey);
             }
         }
 
-        public static ToolControlVM FastTool
+        private static void ApplyTool(ToolControlVM vm, ActiveToolType newType)
         {
-            get => _fastTool;
-            set
-            {
-                if (_fastTool == value)
-                    return;
-                if (_fastTool != null)
-                {
-                    if (_fastTool.InAction)
-                        _fastTool.StopAction();
-                    _fastTool.Pressed = false;
-                }
+            if (activeTool != null)
+                activeTool.Pressed = false;
+            activeTool = vm;
+            type = newType;
 
-                _fastTool = value;
-                if (_fastTool == null)
-                {
-                    if (_currentTool != null)
-                        _currentTool.Pressed = true;
-                    return;
-                }
+            activeTool.Pressed = true;
+        }
 
-                if (_fastTool != null)
-                {
-                    if (_currentTool != null)
-                    {
-                        if (_currentTool.InAction)
-                            _currentTool.StopAction();
-                        _currentTool.Pressed = false;
-                    }
-                }
+        private static void KeyUp(Key key)
+        {
+            PressedKeys.Remove(key);
+            RecalculateTools();
+        }
 
-                _fastTool.Pressed = true;
-            }
+        private static void KeyDown(Key key)
+        {
+            PressedKeys.Add(key);
+            RecalculateTools();
+        }
+
+        private enum ActiveToolType
+        {
+            FastKey,
+            Hotkey
         }
     }
 }

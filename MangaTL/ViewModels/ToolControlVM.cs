@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-
 using MangaTL.Core;
 using MangaTL.Managers;
-
-using Prism.Commands;
 using Prism.Mvvm;
 
 namespace MangaTL.ViewModels
@@ -18,11 +15,6 @@ namespace MangaTL.ViewModels
         private ICommand _pressCommand;
 
         private string _toolTip;
-
-        private readonly HashSet<Key> activeKeys = new HashSet<Key>();
-        protected HashSet<Key> FastKeys = new HashSet<Key>();
-
-        protected Key HotKey;
 
         public ICommand PressCommand
         {
@@ -48,13 +40,11 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref _imageSource, value);
         }
 
-        public bool InAction { get; protected set; }
+        protected bool InAction { get; set; }
 
-        protected ToolControlVM(Key hotKey, IEnumerable<Key> fastKeys)
+        protected ToolControlVM(List<Key> hotkey, List<Key> fastKeys)
         {
-            HotKey = hotKey;
-            foreach (var fastKey in fastKeys)
-                FastKeys.Add(fastKey);
+            ToolManager.AddTool(this, hotkey, fastKeys);
 
             MouseManager.MousePressed += args =>
             {
@@ -66,48 +56,21 @@ namespace MangaTL.ViewModels
 
             MouseManager.MouseReleased += args =>
             {
-                if (!Pressed || args.ChangedButton != MouseButton.Left)
+                if (!InAction || args.ChangedButton != MouseButton.Left)
                     return;
-
                 if (args.ButtonState == MouseButtonState.Released)
                     StopAction();
             };
-
-            PressCommand = new DelegateCommand(() =>
-            {
-                if (!Pressed)
-                    ToolManager.CurrentTool = this;
-            });
-
-            KeyManager.KeyDown += KeyPressed;
-            KeyManager.KeyUp += KeyReleased;
         }
 
-        public abstract void DoAction();
-        public abstract void StopAction();
-
-
-        private void KeyPressed(Key key)
+        protected virtual void DoAction()
         {
-            if (HotKey == key && !Pressed)
-                ToolManager.CurrentTool = this;
-
-            if (FastKeys == null || !FastKeys.Contains(key))
-                return;
-
-            activeKeys.Add(key);
-            if (FastKeys.Count != 0 && activeKeys.Count == FastKeys.Count)
-                ToolManager.FastTool = this;
+            InAction = true;
         }
 
-        private void KeyReleased(Key key)
+        protected virtual void StopAction()
         {
-            if (FastKeys == null || !activeKeys.Contains(key))
-                return;
-
-            activeKeys.Remove(key);
-            if (ToolManager.FastTool == this)
-                ToolManager.FastTool = null;
+            InAction = false;
         }
     }
 }

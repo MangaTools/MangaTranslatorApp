@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using MangaTL.Managers;
 
 namespace MangaTL.ViewModels.Tools
 {
@@ -8,20 +7,15 @@ namespace MangaTL.ViewModels.Tools
     {
         private readonly ImageViewerVM _image;
 
-        public TextTool(ImageViewerVM image) : base(Key.T, new List<Key>())
+        public TextTool(ImageViewerVM image) : base(new List<Key> {Key.T}, new List<Key>())
         {
             _image = image;
         }
 
-        public override void DoAction()
+        protected override void DoAction()
         {
-            InAction = true;
+            base.DoAction();
             Clicked();
-        }
-
-        public override void StopAction()
-        {
-            InAction = false;
         }
 
         private void Clicked()
