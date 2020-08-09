@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-
-using MangaTL.Core.Algorithms;
 
 namespace MangaTL.Core
 {
@@ -23,17 +18,13 @@ namespace MangaTL.Core
             Bubbles = new List<TextBubble>();
         }
 
-        public async Task<TextBubble> CreateBubble(TextStyle style, Point position, int threshold)
+        public TextBubble CreateBubble(Rectangle rect)
         {
-            threshold /= 2;
-            var rectangle = await QuickSelectionAlgorithm.GetRectangle(CleanedImage, position, threshold);
             var bubble = new TextBubble
             {
-                Position = new Point(rectangle.X, rectangle.Y),
-                Rotation = 0,
-                Shape = new Shapes.Rectangle(rectangle.Width, rectangle.Height),
-                Style = style,
-                TextContent = "Test\nTest\nTest\nTest\nTest\nTest\nTest"
+                Rect = rect,
+                TextContent =
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec turpis ultricies nulla posuere consequat."
             };
             Bubbles.Add(bubble);
 

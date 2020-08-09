@@ -17,9 +17,11 @@ namespace MangaTL.Managers
 
         private static bool started;
 
-        private static SortedList<List<Key>, ToolControlVM> fastKeys;
+        private static List<(List<Key>, ToolControlVM)> fastKeys;
 
-        private static SortedList<List<Key>, ToolControlVM> hotkeys;
+        private static List<(List<Key>, ToolControlVM)> hotkeys;
+
+        private static Comparer<(List<Key>, ToolControlVM)> comp;
 
         public static void AddTool(ToolControlVM vm, List<Key> shortcut, List<Key> fastKeysVm)
         {
@@ -27,9 +29,12 @@ namespace MangaTL.Managers
                 return;
 
             if (fastKeysVm != null && fastKeysVm.Count != 0)
-                fastKeys[fastKeysVm] = vm;
+                fastKeys.Add((fastKeysVm, vm));
             if (shortcut != null && shortcut.Count != 0)
-                hotkeys[shortcut]= vm;
+                hotkeys.Add((shortcut, vm));
+
+            fastKeys.Sort(comp);
+            hotkeys.Sort(comp);
         }
 
         public static void Start()
@@ -38,10 +43,11 @@ namespace MangaTL.Managers
                 return;
 
             // comparer by descending
-            var defComparer = Comparer<List<Key>>.Create((a, b) => b.Count.CompareTo(a.Count));
+            comp =
+                Comparer<(List<Key>, ToolControlVM)>.Create((a, b) => b.Item1.Count.CompareTo(a.Item1.Count));
 
-            fastKeys = new SortedList<List<Key>, ToolControlVM>(defComparer);
-            hotkeys = new SortedList<List<Key>, ToolControlVM>(defComparer);
+            fastKeys = new List<(List<Key>, ToolControlVM)>();
+            hotkeys = new List<(List<Key>, ToolControlVM)>();
 
             started = true;
             KeyManager.KeyDown += KeyDown;
@@ -50,23 +56,28 @@ namespace MangaTL.Managers
 
         private static void RecalculateTools()
         {
+            var choose = false;
             foreach (var toolControlVm in fastKeys)
             {
-                var pressed = toolControlVm.Key.All(key => PressedKeys.Contains(key));
+                var pressed = toolControlVm.Item1.All(key => PressedKeys.Contains(key));
                 if (!pressed)
                     continue;
 
-                preferredFastTool = toolControlVm.Value;
+                preferredFastTool = toolControlVm.Item2;
+                choose = true;
                 break;
             }
 
+            if (!choose)
+                preferredFastTool = null;
+
             foreach (var toolControlVm in hotkeys)
             {
-                var pressed = toolControlVm.Key.All(key => PressedKeys.Contains(key));
+                var pressed = toolControlVm.Item1.All(key => PressedKeys.Contains(key));
                 if (!pressed)
                     continue;
 
-                preferredHotkeyTool = toolControlVm.Value;
+                preferredHotkeyTool = toolControlVm.Item2;
                 break;
             }
 
@@ -111,10 +122,12 @@ namespace MangaTL.Managers
         {
             if (activeTool != null)
                 activeTool.Pressed = false;
+
             activeTool = vm;
             type = newType;
 
-            activeTool.Pressed = true;
+            if (activeTool != null)
+                activeTool.Pressed = true;
         }
 
         private static void KeyUp(Key key)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MangaTL.Core.Algorithms
 {
-    public static class QuickSelectionAlgorithm
+    internal static class QuickSelectionAlgorithm
     {
         private static (List<Point> Points, Rectangle Bounds) GetPoints(Bitmap bitmap, Point startPoint, int threshold)
         {

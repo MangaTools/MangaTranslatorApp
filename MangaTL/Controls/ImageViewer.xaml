@@ -26,8 +26,9 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Rectangle>
-        <Image Canvas.Left="{Binding X}" RenderOptions.BitmapScalingMode="NearestNeighbor" Canvas.Top="{Binding Y}" Height="{Binding Height}" Width="{Binding Width}"
-                Source="{Binding Image}">
+        <Image Canvas.Left="{Binding X}" RenderOptions.BitmapScalingMode="NearestNeighbor" Canvas.Top="{Binding Y}"
+               Height="{Binding Height}" Width="{Binding Width}"
+               Source="{Binding Image}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseWheel">
                     <interactivity:InvokeCommandAction Command="{Binding MouseWheelCommand}" />
@@ -42,19 +43,16 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Text}"
-                               FontFamily="{Binding FontFamily}"
-                               TextAlignment="{Binding Alignment}"
-                               FontSize="{Binding Size}"
-                               Foreground="{Binding ForegroundColor}"
-                               Width="{Binding Width}"
-                               Height="{Binding Height}"/>
+                    <Rectangle Width="{Binding Width}"
+                               Height="{Binding Height}"
+                               Stroke="Red"
+                               StrokeThickness="5" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

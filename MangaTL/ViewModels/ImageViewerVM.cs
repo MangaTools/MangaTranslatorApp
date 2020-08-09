@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
+using System.Drawing;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -9,6 +9,9 @@ using MangaTL.Managers;
 
 using Prism.Commands;
 using Prism.Mvvm;
+
+using Point = System.Windows.Point;
+using Size = System.Windows.Size;
 
 namespace MangaTL.ViewModels
 {
@@ -87,6 +90,11 @@ namespace MangaTL.ViewModels
             Y += delta.Y;
         }
 
+        public Point GetRelativePoint(Point point)
+        {
+            return new Point((point.X - X) / _scale, (point.Y - Y) / _scale);
+        }
+
         public void MoveBubbles(Point delta)
         {
             foreach (var bubbleVm in _bubbleCollection)
@@ -96,21 +104,13 @@ namespace MangaTL.ViewModels
             }
         }
 
-        private System.Drawing.Point GetImagePoint()
+        public BubbleVM CreateBubble(Rectangle rect)
         {
-            var pos = MouseManager.MousePosition;
-            pos.Y -= 26;
-            var imagePos = new Point(X, Y);
-            var newPos = (pos - imagePos) / _scale;
-            return new System.Drawing.Point((int)Math.Floor(newPos.X), (int)Math.Floor(newPos.Y));
-        }
+            var bubbleModel = currentPage.CreateBubble(rect);
 
-        public async void AddBubble()
-        {
-            var bubbleModel = await currentPage.CreateBubble(TextStyle.StandartStyle, GetImagePoint(), 32);
-
-            var bubble = new BubbleVM(bubbleModel, _scale, new Point(X, Y));
+            var bubble = new BubbleVM(bubbleModel, _scale, new Point(X, Y), this);
             BubbleCollection.Add(bubble);
+            return bubble;
         }
 
         public void ScaleRegion(Point mousePosition, double deltaScale)
@@ -144,9 +144,7 @@ namespace MangaTL.ViewModels
         {
             var p = new Point(X, Y);
             foreach (var bubble in _bubbleCollection)
-            {
                 bubble.UpdateVisual(_scale, p);
-            }
         }
 
         public void LoadPage(Page page)
@@ -160,7 +158,12 @@ namespace MangaTL.ViewModels
             BubbleCollection.Clear();
             var p = new Point(X, Y);
             foreach (var pageBubble in page.Bubbles)
-                BubbleCollection.Add(new BubbleVM(pageBubble, _scale, p));
+                BubbleCollection.Add(new BubbleVM(pageBubble, _scale, p, this));
+        }
+
+        public (Point, double) GetData()
+        {
+            return (new Point(X, Y), _scale);
         }
     }
 }

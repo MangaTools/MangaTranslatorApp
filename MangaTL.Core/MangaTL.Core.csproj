@@ -43,20 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\FitTextAlgorithm.cs" />
     <Compile Include="Algorithms\QuickSelectionAlgorithm.cs" />
     <Compile Include="Algorithms\RectangleFinder.cs" />
     <Compile Include="Chapter.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="ControlType.cs" />
-    <Compile Include="Shapes\Ellipse.cs" />
-    <Compile Include="Shapes\IShape.cs" />
-    <Compile Include="Shapes\Rectangle.cs" />
-    <Compile Include="TextFormatting\Alignment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextFormatting\SplitSettings.cs" />
     <Compile Include="TextFormatting\TextBubble.cs" />
-    <Compile Include="TextFormatting\TextMeasuring.cs" />
-    <Compile Include="TextFormatting\TextStyle.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
