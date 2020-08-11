@@ -49,10 +49,36 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Rectangle Width="{Binding Width}"
-                               Height="{Binding Height}"
-                               Stroke="Red"
-                               StrokeThickness="5" />
+                    <Border
+                        BorderThickness="{Binding BorderThickness}"
+                        Width="{Binding Width}"
+                        Height="{Binding Height}">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="{Binding BorderColor}" Opacity="0.5"/>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush Color="#1D3557" Opacity="{Binding BackgroundOpacity}"/>
+                        </Border.Background>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseEnter">
+                                <interactivity:InvokeCommandAction Command="{Binding MouseEnterCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseLeave">
+                                <interactivity:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBlock Text="{Binding Text}"
+                                   FontSize="{Binding FontSize}"
+                                   Background="{x:Null}"
+                                   TextAlignment="Left"
+                                   TextWrapping="Wrap"
+                                   TextTrimming="CharacterEllipsis">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="#F1FAEE" Opacity="{Binding ForegroundOpacity}"></SolidColorBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Border>
+                    <!--<TextBlock Text="{Binding Text}"></TextBlock>-->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
