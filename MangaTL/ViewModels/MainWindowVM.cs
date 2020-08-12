@@ -122,9 +122,8 @@ namespace MangaTL.ViewModels
                 };
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    chapter = Chapter.Load(openFileDialog.FileName);
-                    currentPage = 0;
-                    Image.LoadPage(chapter.Pages.FirstOrDefault());
+                    OpenFile(openFileDialog.FileName);
+                    
                 }
             });
             SaveCommand = new DelegateCommand(() =>
@@ -151,6 +150,13 @@ namespace MangaTL.ViewModels
                 currentPage = 0;
                 Image.LoadPage(chapter.Pages.FirstOrDefault());
             });
+        }
+
+        public void OpenFile(string path)
+        {
+            chapter = Chapter.Load(path);
+            currentPage = 0;
+            Image.LoadPage(chapter.Pages.FirstOrDefault());
         }
 
         private void NextPage()
