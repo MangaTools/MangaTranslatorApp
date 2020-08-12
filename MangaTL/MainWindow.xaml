@@ -51,10 +51,10 @@
                 <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
             </MenuItem>
         </Menu>
-        <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Fill="#FF1D3557" />
+        <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Fill="#FF1D3557" />
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Test, FallbackValue=Test}" />
-        <local:ImageViewer x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1" Grid.Column="0" />
+        <local:ImageViewer Focusable="True" x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1" Grid.Column="0" />
         <local:ToolsMenu Grid.Row="0" Grid.Column="1" DataContext="{Binding Tools}" />
-        <controls:StyleControl Grid.Row="1" Grid.Column="1"/>
+        <controls:StyleControl Grid.Row="1" DataContext="{Binding Style}" Grid.Column="1"/>
     </Grid>
 </Window>

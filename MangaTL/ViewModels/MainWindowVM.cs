@@ -61,13 +61,17 @@ namespace MangaTL.ViewModels
 
         public ICommand OpenCommand { get; }
 
+        public StyleControlVM Style { get; set; }
+
 
         public MainWindowVM(Window window)
         {
             _window = window;
             Image = new ImageViewerVM();
-            Tools = new ToolsMenuVM(Image);
+            Style = new StyleControlVM();
+            Tools = new ToolsMenuVM(Image, Style);
 
+            KeyManager.SetWindow(window);
 
             KeyUpCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyReleased(x.Key));
             KeyDownCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyPressed(x.Key));
@@ -87,6 +91,8 @@ namespace MangaTL.ViewModels
                         break;
                 }
             };
+
+
             ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
             ExportCommand = new DelegateCommand(() =>
             {
@@ -149,20 +155,19 @@ namespace MangaTL.ViewModels
 
         private void NextPage()
         {
-            if (chapter != null && currentPage + 1 < chapter.Pages.Count)
-            {
-                currentPage++;
-                Image.LoadPage(chapter.Pages[currentPage]);
-            }
+            if (chapter == null || currentPage + 1 >= chapter.Pages.Count)
+                return;
+
+            currentPage++;
+            Image.LoadPage(chapter.Pages[currentPage]);
         }
 
         private void PreviousPage()
         {
-            if (chapter != null && currentPage > 0)
-            {
-                currentPage--;
-                Image.LoadPage(chapter.Pages[currentPage]);
-            }
+            if (chapter == null || currentPage <= 0)
+                return;
+            currentPage--;
+            Image.LoadPage(chapter.Pages[currentPage]);
         }
     }
 }

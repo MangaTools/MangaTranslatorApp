@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -164,6 +165,12 @@ namespace MangaTL.ViewModels
         public (Point, double) GetData()
         {
             return (new Point(X, Y), _scale);
+        }
+
+        public BubbleVM GetBubbleFromPoint(Point mousePoint)
+        {
+            mousePoint = GetRelativePoint(mousePoint);
+            return BubbleCollection.FirstOrDefault(bubbleVm => bubbleVm.GetBubble.Rect.Intersect(mousePoint));
         }
     }
 }

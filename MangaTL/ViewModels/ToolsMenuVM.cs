@@ -18,9 +18,9 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref _tools, value);
         }
 
-        public ToolsMenuVM(ImageViewerVM imageVM)
+        public ToolsMenuVM(ImageViewerVM imageVM, StyleControlVM styeVM)
         {
-            _tools = new ObservableCollection<ToolControlVM> { new HandTool(imageVM), new ResizeTool(imageVM), new TextTool(imageVM) };
+            _tools = new ObservableCollection<ToolControlVM> { new HandTool(imageVM), new ResizeTool(imageVM), new TextTool(imageVM), new PointTool(imageVM,styeVM) };
         }
     }
 }

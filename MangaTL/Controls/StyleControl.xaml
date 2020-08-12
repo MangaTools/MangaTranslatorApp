@@ -5,37 +5,82 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MangaTL.Controls"
              xmlns:viewModels="clr-namespace:MangaTL.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactions="clr-namespace:MangaTL.Interactions"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="400">
     <Grid d:DataContext="{d:DesignInstance {x:Type viewModels:StyleControlVM}}">
         <StackPanel Orientation="Vertical">
             <TextBlock Text="Properties" FontSize="24" Margin="0,0,0,15" TextAlignment="Center" Background="{x:Null}"
-                     Foreground="#F1FAEE" />
+                       Foreground="#F1FAEE" />
+
             <StackPanel HorizontalAlignment="Center" Margin="0,0,0,10" Orientation="Horizontal">
+
                 <TextBlock Text="X" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="#F1FAEE" />
+
                 <TextBox Text="{Binding X, FallbackValue=1024}" FontSize="16" Margin="0,0,50,0" TextAlignment="Center"
-                         Background="{x:Null}" Foreground="#F1FAEE" BorderBrush="{x:Null}" />
+                         Background="{x:Null}" Foreground="#F1FAEE" BorderBrush="{x:Null}">
+                    <i:Interaction.Behaviors>
+                        <interactions:TextBoxBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
                 <TextBlock Text="Y" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="#F1FAEE" />
-                <TextBox Text="{Binding Y, FallbackValue=560}" FontSize="16" TextAlignment="Center"
-                         Background="{x:Null}" Foreground="#F1FAEE" BorderBrush="{x:Null}" />
+
+                <TextBox Text="{Binding Y, FallbackValue=560}"
+                    FontSize="16" TextAlignment="Center"
+                    Background="{x:Null}" Foreground="#F1FAEE"
+                    BorderBrush="{x:Null}">
+                    <i:Interaction.Behaviors>
+                        <interactions:TextBoxBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
+
             <StackPanel HorizontalAlignment="Center" Margin="0,0,0,15" Orientation="Horizontal">
                 <TextBlock Text="W" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="#F1FAEE" />
-                <TextBox Text="{Binding Width, FallbackValue=1024}" FontSize="16" Margin="0,0,50,0" TextAlignment="Center"
-                         Background="{x:Null}" Foreground="#F1FAEE" BorderBrush="{x:Null}" />
+                <TextBox
+                    Text="{Binding Width, FallbackValue=1024}"
+                    FontSize="16" Margin="0,0,50,0"
+                    TextAlignment="Center"
+                    Background="{x:Null}"
+                    Foreground="#F1FAEE"
+                    BorderBrush="{x:Null}">
+                    <i:Interaction.Behaviors>
+                        <interactions:TextBoxBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
                 <TextBlock Text="H" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="#F1FAEE" />
+
                 <TextBox Text="{Binding Height, FallbackValue=500}" FontSize="16" TextAlignment="Center"
-                         Background="{x:Null}" Foreground="#F1FAEE" BorderBrush="{x:Null}" />
+                         Background="{x:Null}" Foreground="#F1FAEE" BorderBrush="{x:Null}">
+                    <i:Interaction.Behaviors>
+                        <interactions:TextBoxBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
-            <TextBlock Text="Text" FontSize="24" Margin="0,0,0,15" TextAlignment="Center" Background="{x:Null}"
-                       Foreground="#F1FAEE" />
-            <TextBox Text="{Binding Text, FallbackValue='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu pulvinar sem. Vestibulum iaculis ac elit nec gravida. Duis elementum aliquet vestibulum.'}"
-                     FontSize="16" Margin="25,0" Background="#F1FAEE" Foreground="#1D3557"
-                     TextWrapping="Wrap" TextAlignment="Left" />
+
+            <TextBlock
+                Text="Text"
+                FontSize="24"
+                Margin="0,0,0,15"
+                TextAlignment="Center"
+                Background="{x:Null}"
+                Foreground="#F1FAEE" />
+
+            <TextBox
+                Text="{Binding Text, FallbackValue='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu pulvinar sem. Vestibulum iaculis ac elit nec gravida. Duis elementum aliquet vestibulum.'}"
+                FontSize="16" Margin="25,0" Background="#F1FAEE" Foreground="#1D3557"
+                TextWrapping="Wrap" TextAlignment="Left">
+                <i:Interaction.Behaviors>
+                    <interactions:TextBoxBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

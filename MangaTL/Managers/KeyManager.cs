@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MangaTL.Managers
@@ -7,6 +8,17 @@ namespace MangaTL.Managers
     public static class KeyManager
     {
         private static readonly HashSet<Key> Keys = new HashSet<Key>();
+
+        private static Window window;
+        public static void SetWindow(Window w)
+        {
+            window = w;
+        }
+
+        public static void ClearFocus()
+        {
+            window.Focus();
+        }
 
         public static void KeyReleased(Key key)
         {

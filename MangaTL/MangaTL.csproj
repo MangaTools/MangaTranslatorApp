@@ -88,6 +88,8 @@
     <Compile Include="Controls\ToolsMenu.xaml.cs">
       <DependentUpon>ToolsMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\RectangleExtensions.cs" />
+    <Compile Include="Interactions\TextBoxBehavior.cs" />
     <Compile Include="Managers\KeyManager.cs" />
     <Compile Include="Managers\MouseManager.cs" />
     <Compile Include="Managers\ToolManager.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="ViewModels\ToolControlVM.cs" />
     <Compile Include="ViewModels\ToolsMenuVM.cs" />
     <Compile Include="ViewModels\Tools\HandTool.cs" />
+    <Compile Include="ViewModels\Tools\PointTool.cs" />
     <Compile Include="ViewModels\Tools\ResizeTool.cs" />
     <Compile Include="ViewModels\Tools\TextTool.cs" />
     <Page Include="Controls\ImageViewer.xaml">
