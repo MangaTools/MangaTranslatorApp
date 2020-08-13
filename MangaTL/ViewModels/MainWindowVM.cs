@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MangaTL.Controls;
@@ -95,16 +96,24 @@ namespace MangaTL.ViewModels
 
 
             ExitCommand = new DelegateCommand(Application.Current.Shutdown);
-            OpenCommand = new DelegateCommand(OpenFileDialog);
-            SaveAsCommand = new DelegateCommand(SaveFileDialog);
-            SaveCommand = new DelegateCommand(() =>
-            {
-                if (string.IsNullOrWhiteSpace(currentChapterSavePath))
-                    SaveFileDialog();
-                else
-                    SaveFile(currentChapterSavePath);
-            });
+            OpenCommand = new DelegateCommand(OpenDialog);
+            SaveAsCommand = new DelegateCommand(SaveAsDialog);
+            SaveCommand = new DelegateCommand(SaveDialog);
             NewChapterCommand = new DelegateCommand(NewChapterDialog);
+
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, SaveDialog);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, SaveAsDialog);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.O}, OpenDialog);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Application.Current.Shutdown);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.N}, NewChapterDialog);
+        }
+
+        private void SaveDialog()
+        {
+            if (string.IsNullOrWhiteSpace(currentChapterSavePath))
+                SaveAsDialog();
+            else
+                SaveFile(currentChapterSavePath);
         }
 
         private void NewChapterDialog()
@@ -118,7 +127,7 @@ namespace MangaTL.ViewModels
             Image.LoadPage(chapter.Pages.FirstOrDefault());
         }
 
-        private void OpenFileDialog()
+        private void OpenDialog()
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -133,7 +142,7 @@ namespace MangaTL.ViewModels
                 OpenFile(openFileDialog.FileName);
         }
 
-        private void SaveFileDialog()
+        private void SaveAsDialog()
         {
             if (chapter == null || chapter.Pages.Count == 0)
                 return;

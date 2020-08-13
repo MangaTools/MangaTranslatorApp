@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Input;
@@ -31,6 +32,11 @@ namespace MangaTL.Managers
 
         public static void KeyPressed(Key key)
         {
+            foreach (var k in keys.Where(k => !Keyboard.IsKeyDown(k)).ToList())
+            {
+                keys.Remove(k);
+                KeyReleased(k);
+            }
             keys.Add(key);
             KeyDown?.Invoke(key);
         }
