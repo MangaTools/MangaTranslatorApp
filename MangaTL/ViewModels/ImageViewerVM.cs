@@ -172,5 +172,11 @@ namespace MangaTL.ViewModels
             mousePoint = GetRelativePoint(mousePoint);
             return BubbleCollection.FirstOrDefault(bubbleVm => bubbleVm.GetBubble.Rect.Intersect(mousePoint));
         }
+
+        public void RemoveBubble(BubbleVM bubble)
+        {
+            BubbleCollection.Remove(bubble);
+            currentPage.Bubbles.Remove(bubble.GetBubble);
+        }
     }
 }

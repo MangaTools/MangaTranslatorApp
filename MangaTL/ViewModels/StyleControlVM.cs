@@ -63,7 +63,7 @@ namespace MangaTL.ViewModels
                     return;
                 SetProperty(ref _width, value);
                 var rect = _bubble.GetBubble.Rect;
-                _bubble.SetNewRect(new Rectangle(rect.X, rect.Y, Width,  rect.Height));
+                _bubble.SetNewRect(new Rectangle(rect.X, rect.Y, Width, rect.Height));
             }
         }
 
@@ -83,12 +83,16 @@ namespace MangaTL.ViewModels
         public void SetBubble(BubbleVM vm)
         {
             _bubble = vm;
+            if (_bubble == null)
+                return;
+
             var data = _bubble.GetBubble;
             X = data.Rect.X;
             Y = data.Rect.Y;
             Width = data.Rect.Width;
             Height = data.Rect.Height;
             Text = data.TextContent;
+
         }
     }
 }

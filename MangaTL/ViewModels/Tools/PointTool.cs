@@ -31,5 +31,25 @@ namespace MangaTL.ViewModels.Tools
                 return;
             _styleVM.SetBubble(_selectedBubble);
         }
+
+        protected override void Activated()
+        {
+            KeyManager.KeyDown += KeyPressed;
+        }
+
+        protected override void Deactivated()
+        {
+            KeyManager.KeyDown -= KeyPressed;
+        }
+
+        private void KeyPressed(Key key)
+        {
+            if (key == Key.Delete && _selectedBubble != null)
+            {
+                _imageVM.RemoveBubble(_selectedBubble);
+                _selectedBubble = null;
+                _styleVM.SetBubble(null);
+            }
+        }
     }
 }

@@ -31,7 +31,17 @@ namespace MangaTL.ViewModels
         public bool Pressed
         {
             get => _isPressed;
-            set => SetProperty(ref _isPressed, value);
+            set
+            {
+                if (value == _isPressed)
+                    return;
+                SetProperty(ref _isPressed, value);
+
+                if (value)
+                    Activated();
+                else
+                    Deactivated();
+            }
         }
 
         public BitmapImage ImageSource
@@ -61,6 +71,14 @@ namespace MangaTL.ViewModels
                 if (args.ButtonState == MouseButtonState.Released)
                     StopAction();
             };
+        }
+
+        protected virtual void Activated()
+        {
+        }
+
+        protected virtual void Deactivated()
+        {
         }
 
         protected virtual void DoAction()
