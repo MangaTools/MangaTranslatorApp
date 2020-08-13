@@ -8,12 +8,10 @@ namespace MangaTL.Core
     public class Page
     {
         public List<TextBubble> Bubbles;
-        public Bitmap CleanedImage;
         public Bitmap TranslateImage;
 
-        public Page(string cleanedImagePath, string translateImagePath)
+        public Page(string translateImagePath)
         {
-            CleanedImage = new Bitmap(cleanedImagePath);
             TranslateImage = new Bitmap(translateImagePath);
             Bubbles = new List<TextBubble>();
         }

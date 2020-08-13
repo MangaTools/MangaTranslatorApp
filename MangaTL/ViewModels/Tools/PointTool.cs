@@ -8,6 +8,7 @@ namespace MangaTL.ViewModels.Tools
     {
         private readonly ImageViewerVM _imageVM;
         private readonly StyleControlVM _styleVM;
+        private BubbleVM _selectedBubble;
 
         public PointTool(ImageViewerVM imageVM, StyleControlVM styleVM) : base(new List<Key> {Key.P},
                                                                                new List<Key> {Key.LeftCtrl})
@@ -25,10 +26,10 @@ namespace MangaTL.ViewModels.Tools
         private void Click()
         {
             var mousePos = MouseManager.MousePosition;
-            var bubble = _imageVM.GetBubbleFromPoint(mousePos);
-            if (bubble == null)
+            _selectedBubble = _imageVM.GetBubbleFromPoint(mousePos);
+            if (_selectedBubble == null)
                 return;
-            _styleVM.SetBubble(bubble);
+            _styleVM.SetBubble(_selectedBubble);
         }
     }
 }

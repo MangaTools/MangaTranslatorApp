@@ -12,7 +12,6 @@ namespace MangaTL.ViewModels
     {
         private const double FontSizes = 16;
         private const double BorderSize = 5;
-        private readonly TextBubble bubbleModel;
 
         private readonly ImageViewerVM vm;
 
@@ -98,40 +97,46 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref _fontSize, value);
         }
 
+        public TextBubble GetBubble { get; }
+
         public BubbleVM(TextBubble bubbleModel, double scale, Point offset, ImageViewerVM vm)
         {
-            this.bubbleModel = bubbleModel;
+            GetBubble = bubbleModel;
             this.vm = vm;
             BorderThickness = BorderSize;
             ForegroundOpacity = 0;
             BackgroundOpacity = 0;
             FontSize = FontSizes;
-            MouseEnterCommand = new DelegateCommand(() =>
-            {
-                BorderColor = Color.FromRgb(69, 123, 157);
-                ForegroundOpacity = 1;
-                BackgroundOpacity = 0.75;
-            });
-            MouseLeaveCommand = new DelegateCommand(() =>
-            {
-                BorderColor = Color.FromRgb(230, 57, 70);
-                ForegroundOpacity = 0;
-                BackgroundOpacity = 0;
-            });
+            MouseEnterCommand = new DelegateCommand(Select);
+            MouseLeaveCommand = new DelegateCommand(Deselect);
             BorderColor = Color.FromRgb(230, 57, 70);
 
             Text = bubbleModel.TextContent;
             UpdateVisual(scale, offset);
         }
 
+        public void Select()
+        {
+            BorderColor = Color.FromRgb(69, 123, 157);
+            ForegroundOpacity = 1;
+            BackgroundOpacity = 0.75;
+        }
+
+        public void Deselect()
+        {
+            BorderColor = Color.FromRgb(230, 57, 70);
+            ForegroundOpacity = 0;
+            BackgroundOpacity = 0;
+        }
+
         public void UpdateVisual(double scale, Point offset)
         {
             FontSize = FontSizes * scale;
             BorderThickness = BorderSize * scale;
-            Width = bubbleModel.Rect.Width * scale;
-            Height = bubbleModel.Rect.Height * scale;
-            X = offset.X + bubbleModel.Rect.X * scale;
-            Y = offset.Y + bubbleModel.Rect.Y * scale;
+            Width = GetBubble.Rect.Width * scale;
+            Height = GetBubble.Rect.Height * scale;
+            X = offset.X + GetBubble.Rect.X * scale;
+            Y = offset.Y + GetBubble.Rect.Y * scale;
         }
 
         public void UpdateVisual()
@@ -142,16 +147,14 @@ namespace MangaTL.ViewModels
 
         public void SetNewRect(Rectangle newRect)
         {
-            bubbleModel.Rect = newRect;
+            GetBubble.Rect = newRect;
             UpdateVisual();
         }
 
         public void SetNewText(string text)
         {
-            bubbleModel.TextContent = text;
+            GetBubble.TextContent = text;
             Text = text;
         }
-
-        public TextBubble GetBubble => bubbleModel;
     }
 }

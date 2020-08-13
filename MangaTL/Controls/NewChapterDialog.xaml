@@ -15,7 +15,6 @@
                         <Setter Property="Padding" Value="10,10" />
                     </Style>
                 </WrapPanel.Resources>
-                <Button Content="Choose cleaned files" Click="ChooseCleanedFiles"/>
                 <Button Content="Choose translate files" Click="ChooseTLFiles"/>
 
             </WrapPanel>

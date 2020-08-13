@@ -152,7 +152,7 @@ namespace MangaTL.ViewModels
         {
             currentPage = page;
             _scale = 1;
-            Image = page.CleanedImage.ConvertToBitmapImage();
+            Image = page.TranslateImage.ConvertToBitmapImage();
             Width = Image.Width;
             Height = Image.Height;
             X = Y = 0;

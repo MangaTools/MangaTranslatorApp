@@ -11,9 +11,9 @@ namespace MangaTL.Core
     {
         public List<Page> Pages { get; private set; }
 
-        public Chapter(string[] cleanedImagesPath, string[] tlImagePath)
+        public Chapter(string[] tlImagePath)
         {
-            Pages = cleanedImagesPath.Select((t, i) => new Page(t, tlImagePath[i])).ToList();
+            Pages = tlImagePath.Select(x => new Page(x)).ToList();
         }
 
         public void Save(string path)

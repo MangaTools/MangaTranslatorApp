@@ -146,7 +146,7 @@ namespace MangaTL.ViewModels
                 var newChapterDialog = new NewChapterDialog();
                 if (newChapterDialog.ShowDialog() != true)
                     return;
-                chapter = new Chapter(newChapterDialog.cleanedPath, newChapterDialog.tlPath);
+                chapter = new Chapter(newChapterDialog.tlPath);
                 currentPage = 0;
                 Image.LoadPage(chapter.Pages.FirstOrDefault());
             });
