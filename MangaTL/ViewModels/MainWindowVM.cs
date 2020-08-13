@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MangaTL.Controls;
@@ -13,30 +12,30 @@ namespace MangaTL.ViewModels
 {
     public class MainWindowVM : BindableBase
     {
-        private ICommand _keyDownCommand;
-
-        private ICommand _keyUpCommand;
-
-        private string _test;
-
-        private Window _window;
-
         private Chapter chapter;
+        private string currentChapterSavePath;
         private int currentPage;
+        private ICommand keyDownCommand;
+
+        private ICommand keyUpCommand;
+
+        private string test;
+
+        private Window window;
         public ImageViewerVM Image { get; set; }
         public ToolsMenuVM Tools { get; set; }
-        private Chapter loadedChapter { get; set; }
+        private Chapter LoadedChapter { get; set; }
 
         public ICommand KeyDownCommand
         {
-            get => _keyDownCommand;
-            set => SetProperty(ref _keyDownCommand, value);
+            get => keyDownCommand;
+            set => SetProperty(ref keyDownCommand, value);
         }
 
         public ICommand KeyUpCommand
         {
-            get => _keyUpCommand;
-            set => SetProperty(ref _keyUpCommand, value);
+            get => keyUpCommand;
+            set => SetProperty(ref keyUpCommand, value);
         }
 
         public ICommand MouseDownCommand { get; }
@@ -47,15 +46,13 @@ namespace MangaTL.ViewModels
 
         public string Test
         {
-            get => _test;
-            set => SetProperty(ref _test, value);
+            get => test;
+            set => SetProperty(ref test, value);
         }
 
         public ICommand NewChapterCommand { get; }
 
         public ICommand SaveCommand { get; }
-
-        public ICommand ExportCommand { get; }
 
         public ICommand ExitCommand { get; }
 
@@ -63,15 +60,19 @@ namespace MangaTL.ViewModels
 
         public StyleControlVM Style { get; set; }
 
+        public ICommand SaveAsCommand { get; }
+
 
         public MainWindowVM(Window window)
         {
-            _window = window;
+            this.window = window;
             Image = new ImageViewerVM();
             Style = new StyleControlVM();
             Tools = new ToolsMenuVM(Image, Style);
 
             KeyManager.SetWindow(window);
+            ShortcutManager.Start();
+
 
             KeyUpCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyReleased(x.Key));
             KeyDownCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyPressed(x.Key));
@@ -93,68 +94,71 @@ namespace MangaTL.ViewModels
             };
 
 
-            ExitCommand = new DelegateCommand(() => Application.Current.Shutdown());
-            ExportCommand = new DelegateCommand(() =>
-            {
-                if (chapter == null || chapter.Pages.Count == 0)
-                    return;
-                var exportFileDialog = new SaveFileDialog
-                {
-                    AddExtension = true,
-                    DefaultExt = "json",
-                    Title = "Export",
-                    OverwritePrompt = true,
-                    Filter = "json files (*.json) | *.json"
-                };
-                if (exportFileDialog.ShowDialog() == true)
-                    File.WriteAllText(exportFileDialog.FileName, chapter.ConvertToJSON());
-            });
-            OpenCommand = new DelegateCommand(() =>
-            {
-                var openFileDialog = new OpenFileDialog
-                {
-                    DefaultExt = "tlm",
-                    Title = "Open",
-                    CheckFileExists = true,
-                    CheckPathExists = true,
-                    Multiselect = false,
-                    Filter = "TLM files (*.tlm) | *.tlm"
-                };
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    OpenFile(openFileDialog.FileName);
-                    
-                }
-            });
+            ExitCommand = new DelegateCommand(Application.Current.Shutdown);
+            OpenCommand = new DelegateCommand(OpenFileDialog);
+            SaveAsCommand = new DelegateCommand(SaveFileDialog);
             SaveCommand = new DelegateCommand(() =>
             {
-                if (chapter == null || chapter.Pages.Count == 0)
-                    return;
-                var saveFileDialog = new SaveFileDialog
-                {
-                    AddExtension = true,
-                    DefaultExt = "tlm",
-                    Title = "Save",
-                    OverwritePrompt = true,
-                    Filter = "TLM files (*.tlm) | *.tlm"
-                };
-                if (saveFileDialog.ShowDialog() == true)
-                    chapter.Save(saveFileDialog.FileName);
+                if (string.IsNullOrWhiteSpace(currentChapterSavePath))
+                    SaveFileDialog();
+                else
+                    SaveFile(currentChapterSavePath);
             });
-            NewChapterCommand = new DelegateCommand(() =>
+            NewChapterCommand = new DelegateCommand(NewChapterDialog);
+        }
+
+        private void NewChapterDialog()
+        {
+            var newChapterDialog = new NewChapterDialog();
+            if (newChapterDialog.ShowDialog() != true)
+                return;
+            currentChapterSavePath = null;
+            chapter = new Chapter(newChapterDialog.tlPath);
+            currentPage = 0;
+            Image.LoadPage(chapter.Pages.FirstOrDefault());
+        }
+
+        private void OpenFileDialog()
+        {
+            var openFileDialog = new OpenFileDialog
             {
-                var newChapterDialog = new NewChapterDialog();
-                if (newChapterDialog.ShowDialog() != true)
-                    return;
-                chapter = new Chapter(newChapterDialog.tlPath);
-                currentPage = 0;
-                Image.LoadPage(chapter.Pages.FirstOrDefault());
-            });
+                DefaultExt = "tlm",
+                Title = "Open",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Multiselect = false,
+                Filter = "TLM files (*.tlm) | *.tlm"
+            };
+            if (openFileDialog.ShowDialog() == true)
+                OpenFile(openFileDialog.FileName);
+        }
+
+        private void SaveFileDialog()
+        {
+            if (chapter == null || chapter.Pages.Count == 0)
+                return;
+            var saveFileDialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "tlm",
+                Title = "Save",
+                OverwritePrompt = true,
+                Filter = "TLM files (*.tlm) | *.tlm"
+            };
+            if (saveFileDialog.ShowDialog() == true)
+                SaveFile(saveFileDialog.FileName);
+        }
+
+        private void SaveFile(string path)
+        {
+            currentChapterSavePath = path;
+            chapter.Save(path);
         }
 
         public void OpenFile(string path)
         {
             chapter = Chapter.Load(path);
+            currentChapterSavePath = path;
             currentPage = 0;
             Image.LoadPage(chapter.Pages.FirstOrDefault());
         }

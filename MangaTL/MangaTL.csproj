@@ -95,6 +95,7 @@
     <Compile Include="Interactions\TextBoxBehavior.cs" />
     <Compile Include="Managers\KeyManager.cs" />
     <Compile Include="Managers\MouseManager.cs" />
+    <Compile Include="Managers\ShortcutManager.cs" />
     <Compile Include="Managers\ToolManager.cs" />
     <Compile Include="ViewModels\BubbleVM.cs" />
     <Compile Include="ViewModels\ImageViewerVM.cs" />

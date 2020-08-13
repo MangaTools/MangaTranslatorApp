@@ -34,10 +34,5 @@ namespace MangaTL.Core
                 return (Chapter)formatter.Deserialize(fs);
             }
         }
-
-        public string ConvertToJSON()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

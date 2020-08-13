@@ -46,7 +46,7 @@
                 <MenuItem Header="New Chapter" Command="{Binding NewChapterCommand}" />
                 <MenuItem Header="Open" Command="{Binding OpenCommand}" />
                 <MenuItem Header="Save" Command="{Binding SaveCommand}" />
-                <MenuItem Header="Export" Command="{Binding ExportCommand}" />
+                <MenuItem Header="Save as..." Command="{Binding SaveAsCommand}" />
                 <Separator />
                 <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
             </MenuItem>
