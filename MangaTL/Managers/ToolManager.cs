@@ -8,7 +8,7 @@ namespace MangaTL.Managers
     public static class ToolManager
     {
         private static ToolControlVM activeTool;
-        private static ActiveToolType type;
+        private static ActiveToolType type = ActiveToolType.Hotkey;
 
         private static ToolControlVM preferredFastTool;
         private static ToolControlVM preferredHotkeyTool;
