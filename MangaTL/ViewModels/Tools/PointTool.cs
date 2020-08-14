@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using MangaTL.Managers;
 
@@ -44,11 +45,19 @@ namespace MangaTL.ViewModels.Tools
 
         private void KeyPressed(Key key)
         {
-            if (key == Key.Delete && _selectedBubble != null)
+            if(_selectedBubble == null)
+                return;
+            var data = KeyManager.Keys;
+
+            if (key == Key.Delete)
             {
                 _imageVM.RemoveBubble(_selectedBubble);
                 _selectedBubble = null;
                 _styleVM.SetBubble(null);
+            }
+            else if (data.Contains(Key.LeftCtrl) && data.Contains(Key.C))
+            {
+                Clipboard.SetText(_selectedBubble.Text);
             }
         }
     }
