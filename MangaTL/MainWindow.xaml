@@ -62,7 +62,8 @@
                           IsEnabled="{Binding CanUndo, Mode=OneWay}" />
             </MenuItem>
         </Menu>
-        <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Fill="{StaticResource DarkBackgroundBrush}" />
+        <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                   Fill="{StaticResource DarkBackgroundBrush}" />
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Test, FallbackValue=Test}" />
         <local:ImageViewer Focusable="True" x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1"
                            Grid.Column="0" />

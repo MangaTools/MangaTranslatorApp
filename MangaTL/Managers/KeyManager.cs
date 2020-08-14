@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,9 +10,10 @@ namespace MangaTL.Managers
     {
         private static readonly HashSet<Key> keys = new HashSet<Key>();
 
+        private static Window window;
+
         public static HashSet<Key> Keys => new HashSet<Key>(keys);
 
-        private static Window window;
         public static void SetWindow(Window w)
         {
             window = w;
@@ -37,6 +37,7 @@ namespace MangaTL.Managers
                 keys.Remove(k);
                 KeyReleased(k);
             }
+
             keys.Add(key);
             KeyDown?.Invoke(key);
         }

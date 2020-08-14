@@ -16,7 +16,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <controls:ToolControl/>
+                    <controls:ToolControl />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

@@ -92,7 +92,6 @@ namespace MangaTL.ViewModels
             Width = data.Rect.Width;
             Height = data.Rect.Height;
             Text = data.TextContent;
-
         }
     }
 }

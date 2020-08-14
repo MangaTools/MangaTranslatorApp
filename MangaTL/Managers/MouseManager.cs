@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using MangaTL.Core;
@@ -11,6 +10,8 @@ namespace MangaTL.Managers
         private static ControlType _currentMouseOver = ControlType.Null;
 
         private static Point _mousePosition;
+
+        private static IInputElement _frame;
 
         public static ControlType CurrentMouseOver
         {
@@ -36,8 +37,6 @@ namespace MangaTL.Managers
                 MouseMove?.Invoke(delta);
             }
         }
-
-        private static IInputElement _frame;
 
         public static void SetMainWindow(IInputElement control)
         {

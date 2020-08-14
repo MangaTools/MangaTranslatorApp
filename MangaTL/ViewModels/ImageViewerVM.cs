@@ -4,13 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-
 using MangaTL.Core;
 using MangaTL.Managers;
-
 using Prism.Commands;
 using Prism.Mvvm;
-
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
 

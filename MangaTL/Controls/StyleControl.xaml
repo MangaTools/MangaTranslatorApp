@@ -30,9 +30,9 @@
                            Foreground="{StaticResource FontLightBrush}" />
 
                 <TextBox Text="{Binding Y, FallbackValue=560}"
-                    FontSize="16" TextAlignment="Center"
-                    Background="{x:Null}" Foreground="{StaticResource FontLightBrush}"
-                    BorderBrush="{x:Null}">
+                         FontSize="16" TextAlignment="Center"
+                         Background="{x:Null}" Foreground="{StaticResource FontLightBrush}"
+                         BorderBrush="{x:Null}">
                     <i:Interaction.Behaviors>
                         <interactions:TextBoxBehavior />
                     </i:Interaction.Behaviors>
@@ -75,7 +75,8 @@
 
             <TextBox
                 Text="{Binding Text}"
-                FontSize="16" Margin="25,0" Background="{StaticResource FontLightBrush}" Foreground="{StaticResource DarkBackgroundBrush}"
+                FontSize="16" Margin="25,0" Background="{StaticResource FontLightBrush}"
+                Foreground="{StaticResource DarkBackgroundBrush}"
                 TextWrapping="Wrap" TextAlignment="Left">
                 <i:Interaction.Behaviors>
                     <interactions:TextBoxBehavior />

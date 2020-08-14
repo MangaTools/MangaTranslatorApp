@@ -12,7 +12,7 @@ namespace MangaTL.Managers
 
         public static void Start()
         {
-            if(started)
+            if (started)
                 return;
             started = true;
             KeyManager.KeyDown += key => CalculateShortcuts();
@@ -21,7 +21,7 @@ namespace MangaTL.Managers
         public static void AddShortcut(List<Key> keys, Action action)
         {
             shortcuts.Add((keys, action));
-            shortcuts.Sort((a,b) => b.keys.Count.CompareTo(a.keys.Count));
+            shortcuts.Sort((a, b) => b.keys.Count.CompareTo(a.keys.Count));
         }
 
         private static void CalculateShortcuts()

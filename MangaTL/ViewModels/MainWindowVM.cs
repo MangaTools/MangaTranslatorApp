@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -14,6 +13,7 @@ namespace MangaTL.ViewModels
 {
     public class MainWindowVM : BindableBase
     {
+        private bool canUndo;
         private Chapter chapter;
         private string currentChapterSavePath;
         private int currentPage;
@@ -64,12 +64,8 @@ namespace MangaTL.ViewModels
 
         public ICommand SaveAsCommand { get; }
 
-        public ICommand UndoCommand
-        {
-            get;
-        }
+        public ICommand UndoCommand { get; }
 
-        private bool canUndo;
         public bool CanUndo
         {
             get => canUndo;
@@ -86,7 +82,7 @@ namespace MangaTL.ViewModels
 
             KeyManager.SetWindow(window);
             ShortcutManager.Start();
-            
+
 
             KeyUpCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyReleased(x.Key));
             KeyDownCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyPressed(x.Key));
@@ -107,7 +103,7 @@ namespace MangaTL.ViewModels
                 }
             };
 
-            UndoManager.CountChanged += (val) =>
+            UndoManager.CountChanged += val =>
             {
                 CanUndo = UndoManager.CanUndo;
             };

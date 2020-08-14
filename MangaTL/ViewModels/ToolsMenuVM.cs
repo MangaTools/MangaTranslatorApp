@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Media.Imaging;
-
+﻿using System.Collections.ObjectModel;
 using MangaTL.ViewModels.Tools;
-
 using Prism.Mvvm;
 
 namespace MangaTL.ViewModels
@@ -20,7 +16,8 @@ namespace MangaTL.ViewModels
 
         public ToolsMenuVM(ImageViewerVM imageVM, StyleControlVM styeVM)
         {
-            _tools = new ObservableCollection<ToolControlVM> { new HandTool(imageVM), new ResizeTool(imageVM), new TextTool(imageVM), new PointTool(imageVM,styeVM) };
+            _tools = new ObservableCollection<ToolControlVM>
+                {new HandTool(imageVM), new ResizeTool(imageVM), new TextTool(imageVM), new PointTool(imageVM, styeVM)};
         }
     }
 }

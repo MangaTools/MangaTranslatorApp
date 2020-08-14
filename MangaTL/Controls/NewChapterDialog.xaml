@@ -15,10 +15,10 @@
                         <Setter Property="Padding" Value="10,10" />
                     </Style>
                 </WrapPanel.Resources>
-                <Button Content="Choose translate files" Click="ChooseTLFiles"/>
+                <Button Content="Choose translate files" Click="ChooseTLFiles" />
 
             </WrapPanel>
-            <Button Name="CreateBT" Margin="0,25,0,0" Content="Create" Click="CreateClick"/>
+            <Button Name="CreateBT" Margin="0,25,0,0" Content="Create" Click="CreateClick" />
         </WrapPanel>
     </Grid>
 </Window>

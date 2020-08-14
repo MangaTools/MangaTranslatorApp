@@ -45,7 +45,7 @@ namespace MangaTL.ViewModels.Tools
 
         private void KeyPressed(Key key)
         {
-            if(_selectedBubble == null)
+            if (_selectedBubble == null)
                 return;
             var data = KeyManager.Keys;
 
