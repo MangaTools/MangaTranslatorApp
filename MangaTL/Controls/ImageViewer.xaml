@@ -9,7 +9,8 @@
              xmlns:interactivity="http://prismlibrary.com/"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas ClipToBounds="True" d:DataContext="{d:DesignInstance {x:Type viewModels:ImageViewerVM} }">
+    <Canvas Background="{StaticResource LightBackgroundBrush}" ClipToBounds="True"
+            d:DataContext="{d:DesignInstance {x:Type viewModels:ImageViewerVM} }">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseEnter">
                 <interactivity:InvokeCommandAction Command="{Binding MouseEnterCommand}" />
@@ -19,13 +20,6 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <Rectangle Fill="White">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseWheel">
-                    <interactivity:InvokeCommandAction Command="{Binding MouseWheelCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Rectangle>
         <Image Canvas.Left="{Binding X}" RenderOptions.BitmapScalingMode="NearestNeighbor" Canvas.Top="{Binding Y}"
                Height="{Binding Height}" Width="{Binding Width}"
                Source="{Binding Image}">
@@ -54,10 +48,11 @@
                         Width="{Binding Width}"
                         Height="{Binding Height}">
                         <Border.BorderBrush>
-                            <SolidColorBrush Color="{Binding BorderColor}" Opacity="0.5"/>
+                            <SolidColorBrush Color="{Binding BorderColor}" Opacity="0.5" />
                         </Border.BorderBrush>
                         <Border.Background>
-                            <SolidColorBrush Color="#1D3557" Opacity="{Binding BackgroundOpacity}"/>
+                            <SolidColorBrush Color="{StaticResource DarkBackgroundColor}"
+                                             Opacity="{Binding BackgroundOpacity}" />
                         </Border.Background>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseEnter">
@@ -74,7 +69,8 @@
                                    TextWrapping="Wrap"
                                    TextTrimming="CharacterEllipsis">
                             <TextBlock.Foreground>
-                                <SolidColorBrush Color="#F1FAEE" Opacity="{Binding ForegroundOpacity}"></SolidColorBrush>
+                                <SolidColorBrush Color="{StaticResource FontLightColor}"
+                                                 Opacity="{Binding ForegroundOpacity}" />
                             </TextBlock.Foreground>
                         </TextBlock>
                     </Border>

@@ -20,6 +20,5 @@
             </WrapPanel>
             <Button Name="CreateBT" Margin="0,25,0,0" Content="Create" Click="CreateClick"/>
         </WrapPanel>
-
     </Grid>
 </Window>

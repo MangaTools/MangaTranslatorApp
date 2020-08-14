@@ -79,9 +79,6 @@
     <Compile Include="Controls\NewChapterDialog.xaml.cs">
       <DependentUpon>NewChapterDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ObjectPropertyControl.xaml.cs">
-      <DependentUpon>ObjectPropertyControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\StyleControl.xaml.cs">
       <DependentUpon>StyleControl.xaml</DependentUpon>
     </Compile>
@@ -93,10 +90,12 @@
     </Compile>
     <Compile Include="Extensions\RectangleExtensions.cs" />
     <Compile Include="Interactions\TextBoxBehavior.cs" />
+    <Compile Include="Managers\Helpers\DropoutStack.cs" />
     <Compile Include="Managers\KeyManager.cs" />
     <Compile Include="Managers\MouseManager.cs" />
     <Compile Include="Managers\ShortcutManager.cs" />
     <Compile Include="Managers\ToolManager.cs" />
+    <Compile Include="Managers\UndoManager.cs" />
     <Compile Include="ViewModels\BubbleVM.cs" />
     <Compile Include="ViewModels\ImageViewerVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
@@ -113,10 +112,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NewChapterDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ObjectPropertyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +139,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\ToolsMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

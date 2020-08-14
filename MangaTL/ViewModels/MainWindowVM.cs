@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -63,6 +64,18 @@ namespace MangaTL.ViewModels
 
         public ICommand SaveAsCommand { get; }
 
+        public ICommand UndoCommand
+        {
+            get;
+        }
+
+        private bool canUndo;
+        public bool CanUndo
+        {
+            get => canUndo;
+            private set => SetProperty(ref canUndo, value);
+        }
+
 
         public MainWindowVM(Window window)
         {
@@ -73,7 +86,7 @@ namespace MangaTL.ViewModels
 
             KeyManager.SetWindow(window);
             ShortcutManager.Start();
-
+            
 
             KeyUpCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyReleased(x.Key));
             KeyDownCommand = new DelegateCommand<KeyEventArgs>(x => KeyManager.KeyPressed(x.Key));
@@ -94,18 +107,25 @@ namespace MangaTL.ViewModels
                 }
             };
 
+            UndoManager.CountChanged += (val) =>
+            {
+                CanUndo = UndoManager.CanUndo;
+            };
+
 
             ExitCommand = new DelegateCommand(Application.Current.Shutdown);
             OpenCommand = new DelegateCommand(OpenDialog);
             SaveAsCommand = new DelegateCommand(SaveAsDialog);
             SaveCommand = new DelegateCommand(SaveDialog);
             NewChapterCommand = new DelegateCommand(NewChapterDialog);
+            UndoCommand = new DelegateCommand(UndoManager.Undo);
 
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, SaveDialog);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, SaveAsDialog);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.O}, OpenDialog);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Application.Current.Shutdown);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.N}, NewChapterDialog);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Z}, UndoManager.Undo);
         }
 
         private void SaveDialog()
@@ -124,6 +144,7 @@ namespace MangaTL.ViewModels
             currentChapterSavePath = null;
             chapter = new Chapter(newChapterDialog.tlPath);
             currentPage = 0;
+            UndoManager.ClearManager();
             Image.LoadPage(chapter.Pages.FirstOrDefault());
         }
 
@@ -169,6 +190,7 @@ namespace MangaTL.ViewModels
             chapter = Chapter.Load(path);
             currentChapterSavePath = path;
             currentPage = 0;
+            UndoManager.ClearManager();
             Image.LoadPage(chapter.Pages.FirstOrDefault());
         }
 

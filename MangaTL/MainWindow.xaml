@@ -11,6 +11,7 @@
         mc:Ignorable="d"
         Name="GeneralWindow"
         Title="MainWindow" Height="450" Width="800"
+        Background="{StaticResource DarkBackgroundBrush}"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowVM} }">
 
     <i:Interaction.Triggers>
@@ -40,21 +41,32 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Menu HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" Grid.Row="0" Grid.Column="0"
-              Grid.ColumnSpan="2">
-            <MenuItem Header="File" Height="25">
-                <MenuItem Header="New Chapter" Command="{Binding NewChapterCommand}" />
-                <MenuItem Header="Open" Command="{Binding OpenCommand}" />
-                <MenuItem Header="Save" Command="{Binding SaveCommand}" />
-                <MenuItem Header="Save as..." Command="{Binding SaveAsCommand}" />
+        <Menu HorizontalAlignment="Left"
+              FontSize="14"
+              HorizontalContentAlignment="Stretch"
+              Grid.Row="0" Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Background="{StaticResource DarkBackgroundBrush}">
+            <MenuItem Foreground="{StaticResource FontLightBrush}" Height="25" Header="File">
+                <MenuItem Foreground="{StaticResource BlackBrush}" Header="New Chapter"
+                          Command="{Binding NewChapterCommand}" />
+                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Open" Command="{Binding OpenCommand}" />
+                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save" Command="{Binding SaveCommand}" />
+                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save as..."
+                          Command="{Binding SaveAsCommand}" />
                 <Separator />
-                <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Exit" Command="{Binding ExitCommand}" />
+            </MenuItem>
+            <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Edit">
+                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Undo" Command="{Binding UndoCommand}"
+                          IsEnabled="{Binding CanUndo, Mode=OneWay}" />
             </MenuItem>
         </Menu>
-        <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Fill="#FF1D3557" />
+        <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Fill="{StaticResource DarkBackgroundBrush}" />
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Test, FallbackValue=Test}" />
-        <local:ImageViewer Focusable="True" x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1" Grid.Column="0" />
+        <local:ImageViewer Focusable="True" x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1"
+                           Grid.Column="0" />
         <local:ToolsMenu Grid.Row="0" Grid.Column="1" DataContext="{Binding Tools}" />
-        <controls:StyleControl Grid.Row="1" DataContext="{Binding Style}" Grid.Column="1"/>
+        <controls:StyleControl Grid.Row="1" DataContext="{Binding Style}" Grid.Column="1" />
     </Grid>
 </Window>
