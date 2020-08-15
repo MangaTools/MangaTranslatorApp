@@ -23,8 +23,8 @@ namespace MangaTL.ViewModels
             {
                 if (_bubble == null)
                     return;
-                SetProperty(ref _x, value);
                 var rect = _bubble.GetBubble.Rect;
+                SetProperty(ref _x, value);
                 _bubble.SetNewRect(new Rectangle(X, rect.Y, rect.Width, rect.Height));
             }
         }
@@ -36,8 +36,8 @@ namespace MangaTL.ViewModels
             {
                 if (_bubble == null)
                     return;
-                SetProperty(ref _y, value);
                 var rect = _bubble.GetBubble.Rect;
+                SetProperty(ref _y, value);
                 _bubble.SetNewRect(new Rectangle(rect.X, Y, rect.Width, rect.Height));
             }
         }
@@ -49,6 +49,7 @@ namespace MangaTL.ViewModels
             {
                 if (_bubble == null)
                     return;
+
                 SetProperty(ref _text, value);
                 _bubble.SetNewText(Text);
             }
@@ -61,8 +62,9 @@ namespace MangaTL.ViewModels
             {
                 if (_bubble == null)
                     return;
-                SetProperty(ref _width, value);
                 var rect = _bubble.GetBubble.Rect;
+
+                SetProperty(ref _width, value);
                 _bubble.SetNewRect(new Rectangle(rect.X, rect.Y, Width, rect.Height));
             }
         }
@@ -74,8 +76,9 @@ namespace MangaTL.ViewModels
             {
                 if (_bubble == null)
                     return;
-                SetProperty(ref _height, value);
                 var rect = _bubble.GetBubble.Rect;
+
+                SetProperty(ref _height, value);
                 _bubble.SetNewRect(new Rectangle(rect.X, rect.Y, rect.Width, Height));
             }
         }

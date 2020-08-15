@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Input;
 using MangaTL.Core;
+using MangaTL.Managers;
 using Prism.Commands;
 using Prism.Mvvm;
 using Color = System.Windows.Media.Color;
@@ -147,14 +148,40 @@ namespace MangaTL.ViewModels
 
         public void SetNewRect(Rectangle newRect)
         {
+            var oldRect = GetBubble.Rect;
+            if (newRect == oldRect)
+                return;
+            UndoManager.CountAction(() =>
+            {
+                SetupNewRect(oldRect);
+            });
             GetBubble.Rect = newRect;
             UpdateVisual();
         }
 
-        public void SetNewText(string text)
+        public void SetupNewRect(Rectangle newRect)
         {
-            GetBubble.TextContent = text;
-            Text = text;
+            GetBubble.Rect = newRect;
+            UpdateVisual();
+        }
+
+        public void SetNewText(string newText)
+        {
+            var oldText = GetBubble.TextContent;
+            if (oldText == newText)
+                return;
+            UndoManager.CountAction(() =>
+            {
+                SetupNewText(oldText);
+            });
+            GetBubble.TextContent = newText;
+            Text = newText;
+        }
+
+        public void SetupNewText(string newText)
+        {
+            GetBubble.TextContent = newText;
+            Text = newText;
         }
     }
 }
