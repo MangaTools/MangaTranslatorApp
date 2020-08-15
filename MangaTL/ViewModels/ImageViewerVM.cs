@@ -172,6 +172,11 @@ namespace MangaTL.ViewModels
 
         public void RemoveBubble(BubbleVM bubble)
         {
+            UndoManager.CountAction(() =>
+            {
+                currentPage.Bubbles.Add(bubble.GetBubble);
+                BubbleCollection.Add(bubble);
+            });
             BubbleCollection.Remove(bubble);
             currentPage.Bubbles.Remove(bubble.GetBubble);
         }
