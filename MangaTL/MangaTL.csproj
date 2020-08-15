@@ -89,6 +89,7 @@
       <DependentUpon>ToolsMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\RectangleExtensions.cs" />
+    <Compile Include="Interactions\ClearFocusOnClickBehavior .cs" />
     <Compile Include="Interactions\TextBoxBehavior.cs" />
     <Compile Include="Managers\Helpers\DropoutStack.cs" />
     <Compile Include="Managers\KeyManager.cs" />

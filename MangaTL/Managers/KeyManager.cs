@@ -10,28 +10,35 @@ namespace MangaTL.Managers
     {
         private static readonly HashSet<Key> keys = new HashSet<Key>();
 
-        private static Window window;
+        public static Window Window { get; private set; }
 
         public static HashSet<Key> Keys => new HashSet<Key>(keys);
 
+        public static bool IsCatchingKeys { get; private set; } = true;
+
+
         public static void SetWindow(Window w)
         {
-            window = w;
+            Window = w;
         }
 
         public static void ClearFocus()
         {
-            window.Focus();
+            Window.Focus();
         }
 
         public static void KeyReleased(Key key)
         {
+            if (!IsCatchingKeys)
+                return;
             keys.Remove(key);
             KeyUp?.Invoke(key);
         }
 
         public static void KeyPressed(Key key)
         {
+            if (!IsCatchingKeys)
+                return;
             foreach (var k in keys.Where(k => !Keyboard.IsKeyDown(k)).ToList())
             {
                 keys.Remove(k);
@@ -40,6 +47,16 @@ namespace MangaTL.Managers
 
             keys.Add(key);
             KeyDown?.Invoke(key);
+        }
+
+        public static void StopCatchingKeys()
+        {
+            IsCatchingKeys = false;
+        }
+
+        public static void ResumeCatchingKeys()
+        {
+            IsCatchingKeys = true;
         }
 
         public static bool IsPressed(Key key)

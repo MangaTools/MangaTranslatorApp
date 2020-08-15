@@ -8,6 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:interactivity="http://prismlibrary.com/"
         xmlns:controls="clr-namespace:MangaTL.Controls"
+        xmlns:interactions="clr-namespace:MangaTL.Interactions"
         mc:Ignorable="d"
         Name="GeneralWindow"
         Title="MainWindow" Height="450" Width="800"
@@ -63,10 +64,18 @@
             </MenuItem>
         </Menu>
         <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
-                   Fill="{StaticResource DarkBackgroundBrush}" />
+                   Fill="{StaticResource DarkBackgroundBrush}">
+            <i:Interaction.Behaviors>
+                <interactions:ClearFocusOnClickBehavior />
+            </i:Interaction.Behaviors>
+        </Rectangle>
         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Test, FallbackValue=Test}" />
         <local:ImageViewer Focusable="True" x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1"
-                           Grid.Column="0" />
+                           Grid.Column="0">
+            <i:Interaction.Behaviors>
+                <interactions:ClearFocusOnClickBehavior />
+            </i:Interaction.Behaviors>
+        </local:ImageViewer>
         <local:ToolsMenu Grid.Row="0" Grid.Column="1" DataContext="{Binding Tools}" />
         <controls:StyleControl Grid.Row="1" DataContext="{Binding Style}" Grid.Column="1" />
     </Grid>

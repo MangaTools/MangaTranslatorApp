@@ -1,4 +1,7 @@
 ﻿using System.Drawing;
+using System.Windows.Input;
+using MangaTL.Managers;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace MangaTL.ViewModels
@@ -81,6 +84,16 @@ namespace MangaTL.ViewModels
                 SetProperty(ref _height, value);
                 _bubble.SetNewRect(new Rectangle(rect.X, rect.Y, rect.Width, Height));
             }
+        }
+
+        public ICommand GetFocus { get; }
+
+        public ICommand LostFocus { get; }
+
+        public  StyleControlVM()
+        {
+            GetFocus = new DelegateCommand(KeyManager.StopCatchingKeys);
+            LostFocus = new DelegateCommand(KeyManager.ResumeCatchingKeys);
         }
 
         public void SetBubble(BubbleVM vm)
