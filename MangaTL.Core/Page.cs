@@ -21,8 +21,7 @@ namespace MangaTL.Core
             var bubble = new TextBubble
             {
                 Rect = rect,
-                TextContent =
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec turpis ultricies nulla posuere consequat."
+                TextContent = ""
             };
             Bubbles.Add(bubble);
 
