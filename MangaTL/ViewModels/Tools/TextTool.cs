@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using MangaTL.Managers;
 using Point = System.Windows.Point;
 
@@ -16,6 +17,8 @@ namespace MangaTL.ViewModels.Tools
         public TextTool(ImageViewerVM image) : base(new List<Key> {Key.T}, new List<Key>())
         {
             _image = image;
+            ImageSource =
+                new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/TextIcon.png"));
         }
 
         protected override void DoAction()

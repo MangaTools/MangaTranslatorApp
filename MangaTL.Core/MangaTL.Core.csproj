@@ -54,10 +54,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Resources\HandIcon.png" />
-    <Content Include="Resources\PointIcon.png" />
-    <Content Include="Resources\TextIcon.png" />
-    <Content Include="Resources\ZoomIcon.png" />
+    <Resource Include="Resources\HandIcon.png" />
+    <Resource Include="Resources\PointIcon.png" />
+    <Resource Include="Resources\TextIcon.png" />
+    <Resource Include="Resources\ZoomIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

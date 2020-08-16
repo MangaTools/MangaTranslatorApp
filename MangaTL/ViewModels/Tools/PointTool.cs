@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using MangaTL.Managers;
 
 namespace MangaTL.ViewModels.Tools
@@ -16,6 +18,8 @@ namespace MangaTL.ViewModels.Tools
         {
             _imageVM = imageVM;
             _styleVM = styleVM;
+            ImageSource =
+                new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/PointIcon.png"));
         }
 
         protected override void DoAction()

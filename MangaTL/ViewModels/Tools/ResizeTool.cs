@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using MangaTL.Managers;
 
 namespace MangaTL.ViewModels.Tools
@@ -14,6 +16,8 @@ namespace MangaTL.ViewModels.Tools
         public ResizeTool(ImageViewerVM image) : base(new List<Key> {Key.Z}, new List<Key> {Key.LeftCtrl, Key.Space})
         {
             _image = image;
+            ImageSource =
+                new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/ZoomIcon.png"));
         }
 
         protected override void DoAction()
