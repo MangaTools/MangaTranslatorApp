@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using MangaTL.Core;
 using MangaTL.Managers;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace MangaTL.ViewModels
@@ -52,8 +53,17 @@ namespace MangaTL.ViewModels
 
         protected bool InAction { get; set; }
 
+        public ICommand PressingCommand
+        {
+            get;
+        }
+
         protected ToolControlVM(List<Key> hotkey, List<Key> fastKeys)
         {
+            PressingCommand = new DelegateCommand(() =>
+            {
+                ToolManager.SetTool(this);
+            });
             ToolManager.AddTool(this, hotkey, fastKeys);
 
             MouseManager.MousePressed += args =>

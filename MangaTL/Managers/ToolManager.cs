@@ -37,6 +37,12 @@ namespace MangaTL.Managers
             hotkeys.Sort(comp);
         }
 
+        public static void SetTool(ToolControlVM tool)
+        {
+            preferredHotkeyTool = tool;
+            ChooseTool();
+        }
+
         public static void Start()
         {
             if (started)
