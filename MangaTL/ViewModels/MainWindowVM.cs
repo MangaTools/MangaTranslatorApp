@@ -46,12 +46,6 @@ namespace MangaTL.ViewModels
 
         public object MouseMoveCommand { get; }
 
-        public string Test
-        {
-            get => test;
-            set => SetProperty(ref test, value);
-        }
-
         public ICommand NewChapterCommand { get; }
 
         public ICommand SaveCommand { get; }
@@ -89,7 +83,6 @@ namespace MangaTL.ViewModels
             MouseDownCommand = new DelegateCommand<MouseButtonEventArgs>(MouseManager.SetMousePressed);
             MouseUpCommand = new DelegateCommand<MouseButtonEventArgs>(MouseManager.SetMouseReleased);
             MouseMoveCommand = new DelegateCommand<MouseEventArgs>(MouseManager.MoveMouse);
-            MouseManager.MouseMove += x => Test = $"{MouseManager.MousePosition.X} {MouseManager.MousePosition.Y}";
             KeyManager.KeyDown += x =>
             {
                 switch (x)

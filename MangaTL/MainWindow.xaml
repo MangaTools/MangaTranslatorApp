@@ -69,7 +69,6 @@
                 <interactions:ClearFocusOnClickBehavior />
             </i:Interaction.Behaviors>
         </Rectangle>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Test, FallbackValue=Test}" />
         <local:ImageViewer Focusable="True" x:Name="PageViewer" DataContext="{Binding Image}" Grid.Row="1"
                            Grid.Column="0">
             <i:Interaction.Behaviors>
