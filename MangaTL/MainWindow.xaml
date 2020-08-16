@@ -11,7 +11,7 @@
         xmlns:interactions="clr-namespace:MangaTL.Interactions"
         mc:Ignorable="d"
         Name="GeneralWindow"
-        Title="MainWindow" Height="450" Width="800"
+        Title="{Binding Title}" Height="450" Width="800"
         Background="{StaticResource DarkBackgroundBrush}"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowVM} }">
 

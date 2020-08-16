@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -21,7 +22,6 @@ namespace MangaTL.ViewModels
 
         private ICommand keyUpCommand;
 
-        private string test;
 
         private Window window;
         public ImageViewerVM Image { get; set; }
@@ -66,10 +66,19 @@ namespace MangaTL.ViewModels
             private set => SetProperty(ref canUndo, value);
         }
 
+        private string title;
+        public string Title
+        {
+            get => title;
+            set => SetProperty(ref title, value);
+        }
+
 
         public MainWindowVM(Window window)
         {
             this.window = window;
+            Title = "MangaTL";
+
             Image = new ImageViewerVM();
             Style = new StyleControlVM();
             Tools = new ToolsMenuVM(Image, Style);
@@ -131,6 +140,7 @@ namespace MangaTL.ViewModels
             if (newChapterDialog.ShowDialog() != true)
                 return;
             currentChapterSavePath = null;
+            Title = "New File";
             chapter = new Chapter(newChapterDialog.tlPath);
             currentPage = 0;
             UndoManager.ClearManager();
@@ -171,11 +181,13 @@ namespace MangaTL.ViewModels
         private void SaveFile(string path)
         {
             currentChapterSavePath = path;
+            Title = Path.GetFileNameWithoutExtension(path);
             chapter.Save(path);
         }
 
         public void OpenFile(string path)
         {
+            Title = Path.GetFileNameWithoutExtension(path);
             chapter = Chapter.Load(path);
             currentChapterSavePath = path;
             currentPage = 0;
