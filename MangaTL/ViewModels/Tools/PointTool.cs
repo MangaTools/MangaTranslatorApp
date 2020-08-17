@@ -9,15 +9,15 @@ namespace MangaTL.ViewModels.Tools
 {
     public class PointTool : ToolControlVM
     {
-        private readonly ImageViewerVM _imageVM;
-        private readonly StyleControlVM _styleVM;
-        private BubbleVM _selectedBubble;
+        private readonly ImageViewerVM imageVm;
+        private readonly StyleControlVM styleVm;
+        private BubbleVM selectedBubble;
 
         public PointTool(ImageViewerVM imageVM, StyleControlVM styleVM) : base(new List<Key> {Key.P},
                                                                                new List<Key> {Key.LeftCtrl})
         {
-            _imageVM = imageVM;
-            _styleVM = styleVM;
+            imageVm = imageVM;
+            styleVm = styleVM;
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/PointIcon.png"));
         }
@@ -31,14 +31,16 @@ namespace MangaTL.ViewModels.Tools
         private void Click()
         {
             var mousePos = MouseManager.MousePosition;
-            _selectedBubble = _imageVM.GetBubbleFromPoint(mousePos);
-            if (_selectedBubble == null)
+            selectedBubble = imageVm.GetBubbleFromPoint(mousePos);
+            if (selectedBubble == null)
                 return;
-            _styleVM.SetBubble(_selectedBubble);
+            styleVm.SetBubble(selectedBubble);
         }
 
         protected override void Activated()
         {
+            imageVm.Cursor = "Cross";
+
             KeyManager.KeyDown += KeyPressed;
         }
 
@@ -49,19 +51,19 @@ namespace MangaTL.ViewModels.Tools
 
         private void KeyPressed(Key key)
         {
-            if (_selectedBubble == null)
+            if (selectedBubble == null)
                 return;
             var data = KeyManager.Keys;
 
             if (key == Key.Delete)
             {
-                _imageVM.RemoveBubble(_selectedBubble);
-                _selectedBubble = null;
-                _styleVM.SetBubble(null);
+                imageVm.RemoveBubble(selectedBubble);
+                selectedBubble = null;
+                styleVm.SetBubble(null);
             }
             else if (data.Contains(Key.LeftCtrl) && data.Contains(Key.C))
             {
-                Clipboard.SetText(_selectedBubble.Text);
+                Clipboard.SetText(selectedBubble.Text);
             }
         }
     }

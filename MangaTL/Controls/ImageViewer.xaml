@@ -9,7 +9,7 @@
              xmlns:interactivity="http://prismlibrary.com/"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas Background="{StaticResource LightBackgroundBrush}" ClipToBounds="True"
+    <Canvas Cursor="{Binding Cursor}" Background="{StaticResource LightBackgroundBrush}" ClipToBounds="True"
             d:DataContext="{d:DesignInstance {x:Type viewModels:ImageViewerVM} }">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseEnter">

@@ -10,13 +10,13 @@ namespace MangaTL.ViewModels.Tools
 {
     public class TextTool : ToolControlVM
     {
-        private readonly ImageViewerVM _image;
-        private BubbleVM _bubble;
-        private Point _startPoint;
+        private readonly ImageViewerVM image;
+        private BubbleVM bubble;
+        private Point startPoint;
 
         public TextTool(ImageViewerVM image) : base(new List<Key> {Key.T}, new List<Key>())
         {
-            _image = image;
+            this.image = image;
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/TextIcon.png"));
         }
@@ -24,18 +24,23 @@ namespace MangaTL.ViewModels.Tools
         protected override void DoAction()
         {
             base.DoAction();
-            _startPoint = _image.GetRelativePoint(MouseManager.MousePosition);
-            _bubble = _image.CreateBubble(new Rectangle((int) _startPoint.X, (int) _startPoint.Y, 0, 0));
+            startPoint = image.GetRelativePoint(MouseManager.MousePosition);
+            bubble = image.CreateBubble(new Rectangle((int) startPoint.X, (int) startPoint.Y, 0, 0));
             MouseManager.MouseMove += MouseMove;
+        }
+
+        protected override void Activated()
+        {
+            image.Cursor = "IBeam";
         }
 
         private void MouseMove(Point newPoint)
         {
-            newPoint = _image.GetRelativePoint(MouseManager.MousePosition);
-            var x = (int) Math.Min(newPoint.X, _startPoint.X);
-            var y = (int) Math.Min(newPoint.Y, _startPoint.Y);
-            var size = newPoint - _startPoint;
-            _bubble.SetupNewRect(new Rectangle(x, y, (int) Math.Abs(size.X), (int) Math.Abs(size.Y)));
+            newPoint = image.GetRelativePoint(MouseManager.MousePosition);
+            var x = (int) Math.Min(newPoint.X, startPoint.X);
+            var y = (int) Math.Min(newPoint.Y, startPoint.Y);
+            var size = newPoint - startPoint;
+            bubble.SetupNewRect(new Rectangle(x, y, (int) Math.Abs(size.X), (int) Math.Abs(size.Y)));
         }
 
         protected override void StopAction()

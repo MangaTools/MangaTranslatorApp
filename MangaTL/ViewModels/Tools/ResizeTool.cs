@@ -20,6 +20,11 @@ namespace MangaTL.ViewModels.Tools
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/ZoomIcon.png"));
         }
 
+        protected override void Activated()
+        {
+            _image.Cursor = "SizeNESW";
+        }
+
         protected override void DoAction()
         {
             base.DoAction();

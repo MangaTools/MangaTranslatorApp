@@ -70,6 +70,13 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref _bubbleCollection, value);
         }
 
+        private string cursor;
+        public string Cursor
+        {
+            get => cursor;
+            set => SetProperty(ref cursor, value);
+        }
+
         public ImageViewerVM()
         {
             _scale = 1;

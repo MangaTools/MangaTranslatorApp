@@ -9,11 +9,11 @@ namespace MangaTL.ViewModels.Tools
 {
     public class HandTool : ToolControlVM
     {
-        private readonly ImageViewerVM _image;
+        private readonly ImageViewerVM image;
 
         public HandTool(ImageViewerVM viewer) : base(new List<Key> {Key.H}, new List<Key> {Key.Space})
         {
-            _image = viewer;
+            image = viewer;
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/HandIcon.png"));
         }
@@ -30,10 +30,15 @@ namespace MangaTL.ViewModels.Tools
             MouseManager.MouseMove -= MoveImage;
         }
 
+        protected override void Activated()
+        {
+            image.Cursor = "Hand";
+        }
+
         private void MoveImage(Point args)
         {
-            _image.MoveImage(args);
-            _image.MoveBubbles(args);
+            image.MoveImage(args);
+            image.MoveBubbles(args);
         }
     }
 }
