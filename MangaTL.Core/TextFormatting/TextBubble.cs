@@ -6,7 +6,32 @@ namespace MangaTL.Core
     [Serializable]
     public class TextBubble
     {
-        public Rectangle Rect;
-        public string TextContent;
+        private Rectangle rect;
+        private string textContent;
+
+        public Rectangle Rect
+        {
+            get => rect;
+            set
+            {
+                if (rect == value)
+                    return;
+                rect = value;
+                BubbleChanged?.Invoke();
+            }
+        }
+        public string TextContent
+        {
+            get => textContent;
+            set
+            {
+                if(textContent == value)
+                    return;
+                textContent = value;
+                BubbleChanged?.Invoke();
+            }
+        }
+
+        public event Action BubbleChanged;
     }
 }
