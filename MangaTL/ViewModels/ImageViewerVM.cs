@@ -28,6 +28,8 @@ namespace MangaTL.ViewModels
         private double _y;
         private Page currentPage;
 
+        private string cursor;
+
         public BitmapImage Image
         {
             get => _image;
@@ -70,7 +72,6 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref _bubbleCollection, value);
         }
 
-        private string cursor;
         public string Cursor
         {
             get => cursor;
@@ -115,6 +116,13 @@ namespace MangaTL.ViewModels
 
             var bubble = new BubbleVM(bubbleModel, _scale, new Point(X, Y), this);
             BubbleCollection.Add(bubble);
+
+            UndoManager.CountAction(() =>
+            {
+                RemoveBubble(bubble);
+                UndoManager.RemoveLast(1);
+            });
+
             return bubble;
         }
 
@@ -181,11 +189,11 @@ namespace MangaTL.ViewModels
         {
             UndoManager.CountAction(() =>
             {
-                currentPage.Bubbles.Add(bubble.GetBubble);
-                BubbleCollection.Add(bubble);
+                CreateBubble(bubble.GetBubble.Rect);
+                UndoManager.RemoveLast(1);
             });
             BubbleCollection.Remove(bubble);
-            currentPage.Bubbles.Remove(bubble.GetBubble);
+            currentPage.RemoveBubble(bubble.GetBubble);
         }
     }
 }

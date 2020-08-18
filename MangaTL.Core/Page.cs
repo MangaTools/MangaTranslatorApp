@@ -7,13 +7,15 @@ namespace MangaTL.Core
     [Serializable]
     public class Page
     {
-        public List<TextBubble> Bubbles;
+        private List<TextBubble> bubbles;
         public Bitmap TranslateImage;
+
+        public IReadOnlyList<TextBubble> Bubbles => bubbles;
 
         public Page(string translateImagePath)
         {
             TranslateImage = new Bitmap(translateImagePath);
-            Bubbles = new List<TextBubble>();
+            bubbles = new List<TextBubble>();
         }
 
         public TextBubble CreateBubble(Rectangle rect)
@@ -23,9 +25,26 @@ namespace MangaTL.Core
                 Rect = rect,
                 TextContent = ""
             };
-            Bubbles.Add(bubble);
+            bubbles.Add(bubble);
+            bubble.BubbleChanged += OnBubbleChanged;
 
             return bubble;
         }
+
+        public void RemoveBubble(TextBubble bubble)
+        {
+            if (!bubbles.Contains(bubble))
+                return;
+
+            bubbles.Remove(bubble);
+            bubble.BubbleChanged -= OnBubbleChanged;
+        }
+
+        private void OnBubbleChanged()
+        {
+            PageChanged?.Invoke();
+        }
+
+        public event Action PageChanged;
     }
 }

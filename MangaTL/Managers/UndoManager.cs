@@ -32,6 +32,12 @@ namespace MangaTL.Managers
             ActionStack.Clear();
         }
 
+        public static void RemoveLast(int count)
+        {
+            for (var i = 0; i < count; i++)
+                ActionStack.Pop();
+        }
+
         public static event Action<int> CountChanged;
     }
 }

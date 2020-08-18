@@ -14,6 +14,8 @@ namespace MangaTL.Core
         public Chapter(string[] tlImagePath)
         {
             Pages = tlImagePath.Select(x => new Page(x)).ToList();
+            foreach (var page in Pages)
+                page.PageChanged += OnPageChanged;
         }
 
         public void Save(string path)
@@ -31,8 +33,15 @@ namespace MangaTL.Core
             var formatter = new BinaryFormatter();
             using (var fs = new FileStream(path, FileMode.OpenOrCreate))
             {
-                return (Chapter)formatter.Deserialize(fs);
+                return (Chapter) formatter.Deserialize(fs);
             }
         }
+
+        private void OnPageChanged()
+        {
+            ChapterChanged?.Invoke();
+        }
+
+        public event Action ChapterChanged;
     }
 }
