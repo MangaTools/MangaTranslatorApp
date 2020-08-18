@@ -116,7 +116,7 @@ namespace MangaTL.ViewModels
             UpdateVisual(scale, offset);
         }
 
-        public void Select()
+        private void Select()
         {
             BorderColor = Color.FromRgb(69, 123, 157);
             ForegroundOpacity = 1;
@@ -140,10 +140,10 @@ namespace MangaTL.ViewModels
             Y = offset.Y + GetBubble.Rect.Y * scale;
         }
 
-        public void UpdateVisual()
+        private void UpdateVisual()
         {
-            var data = vm.GetData();
-            UpdateVisual(data.Item2, data.Item1);
+            var (offset, scale) = vm.GetData();
+            UpdateVisual(scale, offset);
         }
 
         public void SetNewRect(Rectangle newRect)
@@ -153,14 +153,9 @@ namespace MangaTL.ViewModels
                 return;
             UndoManager.CountAction(() =>
             {
-                SetupNewRect(oldRect);
+                SetNewRect(oldRect);
+                UndoManager.RemoveLast(1);
             });
-            GetBubble.Rect = newRect;
-            UpdateVisual();
-        }
-
-        public void SetupNewRect(Rectangle newRect)
-        {
             GetBubble.Rect = newRect;
             UpdateVisual();
         }
@@ -172,14 +167,9 @@ namespace MangaTL.ViewModels
                 return;
             UndoManager.CountAction(() =>
             {
-                SetupNewText(oldText);
+                SetNewText(oldText);
+                UndoManager.RemoveLast(1);
             });
-            GetBubble.TextContent = newText;
-            Text = newText;
-        }
-
-        public void SetupNewText(string newText)
-        {
             GetBubble.TextContent = newText;
             Text = newText;
         }

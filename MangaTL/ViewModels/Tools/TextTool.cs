@@ -40,7 +40,8 @@ namespace MangaTL.ViewModels.Tools
             var x = (int) Math.Min(newPoint.X, startPoint.X);
             var y = (int) Math.Min(newPoint.Y, startPoint.Y);
             var size = newPoint - startPoint;
-            bubble.SetupNewRect(new Rectangle(x, y, (int) Math.Abs(size.X), (int) Math.Abs(size.Y)));
+            bubble.SetNewRect(new Rectangle(x, y, (int) Math.Abs(size.X), (int) Math.Abs(size.Y)));
+            UndoManager.RemoveLast(1);
         }
 
         protected override void StopAction()
