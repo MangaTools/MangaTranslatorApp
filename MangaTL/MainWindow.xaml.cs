@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using MangaTL.Managers;
 using MangaTL.ViewModels;
 
@@ -25,6 +26,11 @@ namespace MangaTL
             var vm = new MainWindowVM(GeneralWindow);
             DataContext = vm;
             vm.OpenFile(path);
+        }
+
+        private void OnClosing(object sender, CancelEventArgs e)
+        {
+            ((MainWindowVM) DataContext).OnExitWindow(e);
         }
     }
 }

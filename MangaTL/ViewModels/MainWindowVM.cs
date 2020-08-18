@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -14,19 +15,19 @@ namespace MangaTL.ViewModels
 {
     public class MainWindowVM : BindableBase
     {
+        private readonly Window window;
         private bool canUndo;
         private Chapter chapter;
         private string currentChapterSavePath;
         private int currentPage;
+        private bool isChapterDirty;
         private ICommand keyDownCommand;
 
         private ICommand keyUpCommand;
 
-
-        private Window window;
+        private string title;
         public ImageViewerVM Image { get; set; }
         public ToolsMenuVM Tools { get; set; }
-        private Chapter LoadedChapter { get; set; }
 
         public ICommand KeyDownCommand
         {
@@ -66,7 +67,6 @@ namespace MangaTL.ViewModels
             private set => SetProperty(ref canUndo, value);
         }
 
-        private string title;
         public string Title
         {
             get => title;
@@ -111,27 +111,54 @@ namespace MangaTL.ViewModels
             };
 
 
-            ExitCommand = new DelegateCommand(Application.Current.Shutdown);
+            ExitCommand = new DelegateCommand(Exit);
             OpenCommand = new DelegateCommand(OpenDialog);
-            SaveAsCommand = new DelegateCommand(SaveAsDialog);
-            SaveCommand = new DelegateCommand(SaveDialog);
+            SaveAsCommand = new DelegateCommand(() => SaveAsDialog());
+            SaveCommand = new DelegateCommand(() => SaveDialog());
             NewChapterCommand = new DelegateCommand(NewChapterDialog);
             UndoCommand = new DelegateCommand(UndoManager.Undo);
 
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, SaveDialog);
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, SaveAsDialog);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, () => SaveDialog());
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, () => SaveAsDialog());
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.O}, OpenDialog);
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Application.Current.Shutdown);
+            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Exit);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.N}, NewChapterDialog);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Z}, UndoManager.Undo);
         }
 
-        private void SaveDialog()
+
+        private void Exit()
+        {
+            window.Close();
+        }
+
+        public void OnExitWindow(CancelEventArgs args)
+        {
+            if (!isChapterDirty)
+                return;
+
+            var result = MessageBox.Show("Save changes in chapter before exiting?", "MangaTL",
+                                         MessageBoxButton.YesNoCancel,
+                                         MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+            switch (result)
+            {
+                case MessageBoxResult.Cancel:
+                    args.Cancel = true;
+                    break;
+                case MessageBoxResult.Yes:
+                    if (!SaveDialog())
+                        args.Cancel = true;
+                    break;
+            }
+        }
+
+        private bool SaveDialog()
         {
             if (string.IsNullOrWhiteSpace(currentChapterSavePath))
-                SaveAsDialog();
-            else
-                SaveFile(currentChapterSavePath);
+                return SaveAsDialog();
+
+            SaveFile(currentChapterSavePath);
+            return true;
         }
 
         private void NewChapterDialog()
@@ -141,7 +168,12 @@ namespace MangaTL.ViewModels
                 return;
             currentChapterSavePath = null;
             Title = "New File";
+            UnsubscribeChapter();
+
             chapter = new Chapter(newChapterDialog.tlPath);
+
+            chapter.ChapterChanged += OnChapterChanged;
+            isChapterDirty = true;
             currentPage = 0;
             UndoManager.ClearManager();
             Image.LoadPage(chapter.Pages.FirstOrDefault());
@@ -162,10 +194,10 @@ namespace MangaTL.ViewModels
                 OpenFile(openFileDialog.FileName);
         }
 
-        private void SaveAsDialog()
+        private bool SaveAsDialog()
         {
             if (chapter == null || chapter.Pages.Count == 0)
-                return;
+                return false;
             var saveFileDialog = new SaveFileDialog
             {
                 AddExtension = true,
@@ -174,25 +206,47 @@ namespace MangaTL.ViewModels
                 OverwritePrompt = true,
                 Filter = "TLM files (*.tlm) | *.tlm"
             };
-            if (saveFileDialog.ShowDialog() == true)
-                SaveFile(saveFileDialog.FileName);
+
+            if (saveFileDialog.ShowDialog() != true)
+                return false;
+
+            SaveFile(saveFileDialog.FileName);
+            return true;
         }
 
         private void SaveFile(string path)
         {
             currentChapterSavePath = path;
             Title = Path.GetFileNameWithoutExtension(path);
+            isChapterDirty = false;
             chapter.Save(path);
         }
 
         public void OpenFile(string path)
         {
             Title = Path.GetFileNameWithoutExtension(path);
+            UnsubscribeChapter();
+
             chapter = Chapter.Load(path);
+
+            isChapterDirty = false;
+            chapter.ChapterChanged += OnChapterChanged;
             currentChapterSavePath = path;
             currentPage = 0;
+
             UndoManager.ClearManager();
             Image.LoadPage(chapter.Pages.FirstOrDefault());
+        }
+
+        private void UnsubscribeChapter()
+        {
+            if (chapter != null)
+                chapter.ChapterChanged -= OnChapterChanged;
+        }
+
+        private void OnChapterChanged()
+        {
+            isChapterDirty = true;
         }
 
         private void NextPage()

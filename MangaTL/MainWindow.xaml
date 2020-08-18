@@ -13,11 +13,12 @@
         Name="GeneralWindow"
         Title="{Binding Title}" Height="450" Width="800"
         Background="{StaticResource DarkBackgroundBrush}"
-        d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowVM} }">
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowVM} }"
+        Closing="OnClosing">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="KeyDown">
-            <interactivity:InvokeCommandAction Command="{Binding KeyDownCommand}" />
+            <interactivity:InvokeCommandAction Command="{Binding KeyDownCommand}"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="KeyUp">
             <interactivity:InvokeCommandAction Command="{Binding KeyUpCommand}" />

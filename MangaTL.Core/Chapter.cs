@@ -42,6 +42,6 @@ namespace MangaTL.Core
             ChapterChanged?.Invoke();
         }
 
-        public event Action ChapterChanged;
+        [field: NonSerialized] public event Action ChapterChanged;
     }
 }
