@@ -47,6 +47,7 @@ namespace MangaTL.ViewModels.Tools
         protected override void Deactivated()
         {
             KeyManager.KeyDown -= KeyPressed;
+            imageVm.Cursor = "Arrow";
         }
 
         private void KeyPressed(Key key)

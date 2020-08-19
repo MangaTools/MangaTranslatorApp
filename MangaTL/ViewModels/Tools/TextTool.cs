@@ -10,13 +10,13 @@ namespace MangaTL.ViewModels.Tools
 {
     public class TextTool : ToolControlVM
     {
-        private readonly ImageViewerVM image;
+        private readonly ImageViewerVM imageVm;
         private BubbleVM bubble;
         private Point startPoint;
 
-        public TextTool(ImageViewerVM image) : base(new List<Key> {Key.T}, new List<Key>())
+        public TextTool(ImageViewerVM imageVm) : base(new List<Key> {Key.T}, new List<Key>())
         {
-            this.image = image;
+            this.imageVm = imageVm;
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/TextIcon.png"));
         }
@@ -24,19 +24,24 @@ namespace MangaTL.ViewModels.Tools
         protected override void DoAction()
         {
             base.DoAction();
-            startPoint = image.GetRelativePoint(MouseManager.MousePosition);
-            bubble = image.CreateBubble(new Rectangle((int) startPoint.X, (int) startPoint.Y, 0, 0));
+            startPoint = imageVm.GetRelativePoint(MouseManager.MousePosition);
+            bubble = imageVm.CreateBubble(new Rectangle((int) startPoint.X, (int) startPoint.Y, 0, 0));
             MouseManager.MouseMove += MouseMove;
         }
 
         protected override void Activated()
         {
-            image.Cursor = "IBeam";
+            imageVm.Cursor = "IBeam";
+        }
+
+        protected override void Deactivated()
+        {
+            imageVm.Cursor = "Arrow";
         }
 
         private void MouseMove(Point newPoint)
         {
-            newPoint = image.GetRelativePoint(MouseManager.MousePosition);
+            newPoint = imageVm.GetRelativePoint(MouseManager.MousePosition);
             var x = (int) Math.Min(newPoint.X, startPoint.X);
             var y = (int) Math.Min(newPoint.Y, startPoint.Y);
             var size = newPoint - startPoint;

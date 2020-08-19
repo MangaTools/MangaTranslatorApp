@@ -18,7 +18,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="KeyDown">
-            <interactivity:InvokeCommandAction Command="{Binding KeyDownCommand}"/>
+            <interactivity:InvokeCommandAction Command="{Binding KeyDownCommand}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="KeyUp">
             <interactivity:InvokeCommandAction Command="{Binding KeyUpCommand}" />

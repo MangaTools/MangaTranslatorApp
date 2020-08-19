@@ -53,10 +53,7 @@ namespace MangaTL.ViewModels
 
         protected bool InAction { get; set; }
 
-        public ICommand PressingCommand
-        {
-            get;
-        }
+        public ICommand PressingCommand { get; }
 
         protected ToolControlVM(List<Key> hotkey, List<Key> fastKeys)
         {

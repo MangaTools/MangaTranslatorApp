@@ -11,7 +11,7 @@
         <ToggleButton Command="{Binding PressCommand}" ToolTip="{Binding ToolTip}" IsChecked="{Binding Pressed}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding PressingCommand}"/>
+                    <i:InvokeCommandAction Command="{Binding PressingCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Image Source="{Binding ImageSource}" />

@@ -90,7 +90,7 @@ namespace MangaTL.ViewModels
 
         public ICommand LostFocus { get; }
 
-        public  StyleControlVM()
+        public StyleControlVM()
         {
             GetFocus = new DelegateCommand(KeyManager.StopCatchingKeys);
             LostFocus = new DelegateCommand(KeyManager.ResumeCatchingKeys);
