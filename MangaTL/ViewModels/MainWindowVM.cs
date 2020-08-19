@@ -25,6 +25,8 @@ namespace MangaTL.ViewModels
 
         private ICommand keyUpCommand;
 
+        private int pages;
+
         private string title;
         public ImageViewerVM Image { get; set; }
         public ToolsMenuVM Tools { get; set; }
@@ -71,6 +73,25 @@ namespace MangaTL.ViewModels
         {
             get => title;
             set => SetProperty(ref title, value);
+        }
+
+        public int CurrentPage
+        {
+            get => currentPage;
+            set
+            {
+                if (chapter == null || value <= 0 || value > Pages)
+                    return;
+                SetProperty(ref currentPage, value);
+
+                Image.LoadPage(chapter.Pages[value - 1]);
+            }
+        }
+
+        public int Pages
+        {
+            get => pages;
+            set => SetProperty(ref pages, value);
         }
 
 
@@ -174,9 +195,10 @@ namespace MangaTL.ViewModels
 
             chapter.ChapterChanged += OnChapterChanged;
             isChapterDirty = true;
-            currentPage = 0;
+            Pages = chapter.Pages.Count;
+            CurrentPage = 1;
+
             UndoManager.ClearManager();
-            Image.LoadPage(chapter.Pages.FirstOrDefault());
         }
 
         private void OpenDialog()
@@ -232,10 +254,10 @@ namespace MangaTL.ViewModels
             isChapterDirty = false;
             chapter.ChapterChanged += OnChapterChanged;
             currentChapterSavePath = path;
-            currentPage = 0;
+            Pages = chapter.Pages.Count;
+            CurrentPage = 1;
 
             UndoManager.ClearManager();
-            Image.LoadPage(chapter.Pages.FirstOrDefault());
         }
 
         private void UnsubscribeChapter()
@@ -251,19 +273,12 @@ namespace MangaTL.ViewModels
 
         private void NextPage()
         {
-            if (chapter == null || currentPage + 1 >= chapter.Pages.Count)
-                return;
-
-            currentPage++;
-            Image.LoadPage(chapter.Pages[currentPage]);
+            CurrentPage++;
         }
 
         private void PreviousPage()
         {
-            if (chapter == null || currentPage <= 0)
-                return;
-            currentPage--;
-            Image.LoadPage(chapter.Pages[currentPage]);
+            CurrentPage--;
         }
     }
 }

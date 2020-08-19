@@ -12,6 +12,7 @@
         mc:Ignorable="d"
         Name="GeneralWindow"
         Title="{Binding Title}" Height="450" Width="800"
+        MinWidth="800" MinHeight="450"
         Background="{StaticResource DarkBackgroundBrush}"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowVM} }"
         Closing="OnClosing">
@@ -43,27 +44,38 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Menu HorizontalAlignment="Left"
-              FontSize="14"
-              HorizontalContentAlignment="Stretch"
-              Grid.Row="0" Grid.Column="0"
-              Grid.ColumnSpan="2"
-              Background="{StaticResource DarkBackgroundBrush}">
-            <MenuItem Foreground="{StaticResource FontLightBrush}" Height="25" Header="File">
-                <MenuItem Foreground="{StaticResource BlackBrush}" Header="New Chapter"
-                          Command="{Binding NewChapterCommand}" />
-                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Open" Command="{Binding OpenCommand}" />
-                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save" Command="{Binding SaveCommand}" />
-                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save as..."
-                          Command="{Binding SaveAsCommand}" />
-                <Separator />
-                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Exit" Command="{Binding ExitCommand}" />
-            </MenuItem>
-            <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Edit">
-                <MenuItem Foreground="{StaticResource BlackBrush}" Header="Undo" Command="{Binding UndoCommand}"
-                          IsEnabled="{Binding CanUndo, Mode=OneWay}" />
-            </MenuItem>
-        </Menu>
+        <DockPanel Grid.Row="0" Grid.Column="0">
+            <Menu HorizontalAlignment="Left"
+                  FontSize="14"
+                  HorizontalContentAlignment="Stretch"
+                  Background="{StaticResource DarkBackgroundBrush}">
+                <MenuItem Foreground="{StaticResource FontLightBrush}" Height="25" Header="File">
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="New Chapter"
+                              Command="{Binding NewChapterCommand}" />
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Open" Command="{Binding OpenCommand}" />
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save" Command="{Binding SaveCommand}" />
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save as..."
+                              Command="{Binding SaveAsCommand}" />
+                    <Separator />
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Exit" Command="{Binding ExitCommand}" />
+                </MenuItem>
+                <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Edit">
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Undo" Command="{Binding UndoCommand}"
+                              IsEnabled="{Binding CanUndo, Mode=OneWay}" />
+                </MenuItem>
+            </Menu>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Text="Page" Margin="2.5,0" />
+                <TextBox MinWidth="25" TextAlignment="Center" FontSize="15" Background="{StaticResource FontLightBrush}" Foreground="{StaticResource DarkBackgroundBrush}" Margin="2.5,0" Text="{Binding CurrentPage, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <interactions:TextBoxBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Margin="2.5,0" Text="of" />
+                <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Margin="2.5,0" Text="{Binding Pages}" />
+            </StackPanel>
+        </DockPanel>
+
         <Rectangle Focusable="True" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
                    Fill="{StaticResource DarkBackgroundBrush}">
             <i:Interaction.Behaviors>
