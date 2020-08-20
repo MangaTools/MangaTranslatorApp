@@ -17,6 +17,7 @@ namespace MangaTL.ViewModels.Tools
         public TextTool(ImageViewerVM imageVm) : base(new List<Key> {Key.T}, new List<Key>())
         {
             this.imageVm = imageVm;
+            ToolTip = "Create bubbles (T)";
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/TextIcon.png"));
         }

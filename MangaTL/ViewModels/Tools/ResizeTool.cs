@@ -16,6 +16,7 @@ namespace MangaTL.ViewModels.Tools
         public ResizeTool(ImageViewerVM imageVm) : base(new List<Key> {Key.Z}, new List<Key> {Key.LeftCtrl, Key.Space})
         {
             this.imageVm = imageVm;
+            ToolTip = "Change scale of image (S)";
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/ZoomIcon.png"));
         }

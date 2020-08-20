@@ -14,6 +14,7 @@ namespace MangaTL.ViewModels.Tools
         public HandTool(ImageViewerVM viewer) : base(new List<Key> {Key.H}, new List<Key> {Key.Space})
         {
             imageVm = viewer;
+            ToolTip = "Move image (H)";
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/HandIcon.png"));
         }

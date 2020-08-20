@@ -18,6 +18,7 @@ namespace MangaTL.ViewModels.Tools
         {
             imageVm = imageVM;
             styleVm = styleVM;
+            ToolTip = "Select bubble(P)";
             ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/PointIcon.png"));
         }
