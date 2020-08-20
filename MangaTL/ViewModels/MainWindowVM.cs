@@ -142,6 +142,7 @@ namespace MangaTL.ViewModels
             NewChapterCommand = new DelegateCommand(NewChapterDialog);
             UndoCommand = new DelegateCommand(UndoManager.Undo);
             AboutCommand = new DelegateCommand(ShowAboutWindow);
+            HelpScreenCommand = new DelegateCommand(ShowHelpWindow);
 
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, () => SaveDialog());
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, () => SaveAsDialog());
@@ -149,6 +150,12 @@ namespace MangaTL.ViewModels
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Exit);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.N}, NewChapterDialog);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Z}, UndoManager.Undo);
+        }
+
+        private void ShowHelpWindow()
+        {
+            var screen = new HelpScreen();
+            screen.ShowDialog();
         }
 
         private void ShowAboutWindow()

@@ -4,9 +4,47 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MangaTL.Controls"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="HelpScreen" Height="450" Width="800">
-    <Grid>
-        
+        Title="Help" Height="450" Width="800">
+    <Grid Background="{StaticResource DarkBackgroundBrush}">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+            <RichTextBox Foreground="{StaticResource FontLightBrush}" Background="{x:Null}" Focusable="False"
+                         IsReadOnly="True">
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0" />
+                    </Style>
+                </RichTextBox.Resources>
+                <FlowDocument>
+
+                    <Paragraph FontSize="16">
+                        Tool is active when you press this buttons:
+                    </Paragraph>
+                    <List Margin="0">
+                        <ListItem>
+                            <Paragraph>Hand tool - Space</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>PointTool - Left Ctrl</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Resize tool - Left Ctrl + Space</Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>Text tool - haven't fast key <LineBreak /></Paragraph>
+                        </ListItem>
+                    </List>
+                    <Paragraph FontSize="16">
+                        About point tool:
+                    </Paragraph>
+                    <Paragraph FontSize="12">
+                        You can delete bubble when you select it and press delete. <LineBreak />
+                        To fast copy bubble text press Left Ctrl + C
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+
+        </ScrollViewer>
     </Grid>
 </Window>
