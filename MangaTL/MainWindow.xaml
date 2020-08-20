@@ -63,6 +63,10 @@
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Undo" Command="{Binding UndoCommand}"
                               IsEnabled="{Binding CanUndo, Mode=OneWay}" />
                 </MenuItem>
+                <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Help">
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Help screen" Command="{Binding HelpScreenCommand}"/>
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="About" Command="{Binding AboutCommand}"/>
+                </MenuItem>
             </Menu>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Text="Page" Margin="2.5,0" />

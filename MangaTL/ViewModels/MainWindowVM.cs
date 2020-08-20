@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MangaTL.Controls;
@@ -94,6 +93,10 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref pages, value);
         }
 
+        public ICommand HelpScreenCommand { get; }
+
+        public ICommand AboutCommand { get; }
+
 
         public MainWindowVM(Window window)
         {
@@ -138,6 +141,7 @@ namespace MangaTL.ViewModels
             SaveCommand = new DelegateCommand(() => SaveDialog());
             NewChapterCommand = new DelegateCommand(NewChapterDialog);
             UndoCommand = new DelegateCommand(UndoManager.Undo);
+            AboutCommand = new DelegateCommand(ShowAboutWindow);
 
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, () => SaveDialog());
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, () => SaveAsDialog());
@@ -147,6 +151,11 @@ namespace MangaTL.ViewModels
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Z}, UndoManager.Undo);
         }
 
+        private void ShowAboutWindow()
+        {
+            var screen = new AboutScreen();
+            screen.ShowDialog();
+        }
 
         private void Exit()
         {
