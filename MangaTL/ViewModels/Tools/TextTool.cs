@@ -54,6 +54,11 @@ namespace MangaTL.ViewModels.Tools
         {
             base.StopAction();
             MouseManager.MouseMove -= MouseMove;
+            var rect = bubble.GetBubble.Rect;
+            if (rect.Width * rect.Height < 1000)
+            {
+                imageVm.RemoveBubble(bubble);
+            }
         }
     }
 }
