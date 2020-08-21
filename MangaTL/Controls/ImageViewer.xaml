@@ -54,14 +54,6 @@
                             <SolidColorBrush Color="{StaticResource DarkBackgroundColor}"
                                              Opacity="{Binding BackgroundOpacity}" />
                         </Border.Background>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseEnter">
-                                <interactivity:InvokeCommandAction Command="{Binding MouseEnterCommand}" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseLeave">
-                                <interactivity:InvokeCommandAction Command="{Binding MouseLeaveCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                         <TextBlock Text="{Binding Text}"
                                    FontSize="{Binding FontSize}"
                                    Background="{x:Null}"

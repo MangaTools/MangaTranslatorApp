@@ -32,9 +32,15 @@ namespace MangaTL.ViewModels.Tools
         private void Click()
         {
             var mousePos = MouseManager.MousePosition;
+            selectedBubble?.Deselect();
             selectedBubble = imageVm.GetBubbleFromPoint(mousePos);
             if (selectedBubble == null)
+            {
+                styleVm.Clear();
                 return;
+            }
+            selectedBubble.Select();
+
             styleVm.SetBubble(selectedBubble);
         }
 

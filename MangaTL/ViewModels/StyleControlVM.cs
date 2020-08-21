@@ -25,7 +25,11 @@ namespace MangaTL.ViewModels
             set
             {
                 if (_bubble == null)
+                {
+                    SetProperty(ref _x, value);
                     return;
+                }
+
                 var rect = _bubble.GetBubble.Rect;
                 SetProperty(ref _x, value);
                 _bubble.SetNewRect(new Rectangle(X, rect.Y, rect.Width, rect.Height));
@@ -38,7 +42,11 @@ namespace MangaTL.ViewModels
             set
             {
                 if (_bubble == null)
+                {
+                    SetProperty(ref _y, value);
                     return;
+                }
+
                 var rect = _bubble.GetBubble.Rect;
                 SetProperty(ref _y, value);
                 _bubble.SetNewRect(new Rectangle(rect.X, Y, rect.Width, rect.Height));
@@ -51,7 +59,10 @@ namespace MangaTL.ViewModels
             set
             {
                 if (_bubble == null)
+                {
+                    SetProperty(ref _text, value);
                     return;
+                }
 
                 SetProperty(ref _text, value);
                 _bubble.SetNewText(Text);
@@ -64,7 +75,11 @@ namespace MangaTL.ViewModels
             set
             {
                 if (_bubble == null)
+                {
+                    SetProperty(ref _width, value);
                     return;
+                }
+
                 var rect = _bubble.GetBubble.Rect;
 
                 SetProperty(ref _width, value);
@@ -78,7 +93,11 @@ namespace MangaTL.ViewModels
             set
             {
                 if (_bubble == null)
+                {
+                    SetProperty(ref _height, value);
                     return;
+                }
+
                 var rect = _bubble.GetBubble.Rect;
 
                 SetProperty(ref _height, value);
@@ -94,6 +113,16 @@ namespace MangaTL.ViewModels
         {
             GetFocus = new DelegateCommand(KeyManager.StopCatchingKeys);
             LostFocus = new DelegateCommand(KeyManager.ResumeCatchingKeys);
+        }
+
+        public void Clear()
+        {
+            _bubble = null;
+            X = 0;
+            Y = 0;
+            Width = 0;
+            Height = 0;
+            Text = "";
         }
 
         public void SetBubble(BubbleVM vm)

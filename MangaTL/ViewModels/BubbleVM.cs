@@ -64,9 +64,6 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref _height, value);
         }
 
-        public ICommand MouseEnterCommand { get; set; }
-
-        public object MouseLeaveCommand { get; set; }
 
         public Color BorderColor
         {
@@ -108,15 +105,13 @@ namespace MangaTL.ViewModels
             ForegroundOpacity = 0;
             BackgroundOpacity = 0;
             FontSize = FontSizes;
-            MouseEnterCommand = new DelegateCommand(Select);
-            MouseLeaveCommand = new DelegateCommand(Deselect);
             BorderColor = Color.FromRgb(230, 57, 70);
 
             Text = bubbleModel.TextContent;
             UpdateVisual(scale, offset);
         }
 
-        private void Select()
+        public void Select()
         {
             BorderColor = Color.FromRgb(69, 123, 157);
             ForegroundOpacity = 1;
