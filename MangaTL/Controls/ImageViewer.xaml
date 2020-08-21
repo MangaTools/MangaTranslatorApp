@@ -57,7 +57,8 @@
                         <TextBlock Text="{Binding Text}"
                                    FontSize="{Binding FontSize}"
                                    Background="{x:Null}"
-                                   TextAlignment="Left"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
                                    TextWrapping="Wrap"
                                    TextTrimming="CharacterEllipsis">
                             <TextBlock.Foreground>
@@ -66,7 +67,6 @@
                             </TextBlock.Foreground>
                         </TextBlock>
                     </Border>
-                    <!--<TextBlock Text="{Binding Text}"></TextBlock>-->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
