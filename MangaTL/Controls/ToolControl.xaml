@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="50">
     <Grid d:DataContext="{d:DesignInstance {x:Type viewModels:ToolControlVM}}">
-        <ToggleButton Background="{StaticResource LightBackgroundBrush}" Foreground="{StaticResource FontLightBrush}"
+        <ToggleButton Background="{StaticResource DarkFontBrush}" Foreground="{StaticResource FontLightBrush}"
                       BorderBrush="{x:Null}" Command="{Binding PressCommand}"
                       ToolTip="{Binding ToolTip}" IsChecked="{Binding Pressed}">
             <i:Interaction.Triggers>

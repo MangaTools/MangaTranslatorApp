@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Input;
 using MangaTL.Core;
 using MangaTL.Managers;
@@ -105,7 +106,7 @@ namespace MangaTL.ViewModels
             ForegroundOpacity = 0;
             BackgroundOpacity = 0;
             FontSize = FontSizes;
-            BorderColor = Color.FromRgb(230, 57, 70);
+            BorderColor = (Color)Application.Current.Resources["AlternativeBrightColor"];
 
             Text = bubbleModel.TextContent;
             UpdateVisual(scale, offset);
@@ -113,14 +114,14 @@ namespace MangaTL.ViewModels
 
         public void Select()
         {
-            BorderColor = Color.FromRgb(69, 123, 157);
+            BorderColor = (Color)Application.Current.Resources["DarkBackgroundColor"];
             ForegroundOpacity = 1;
             BackgroundOpacity = 0.75;
         }
 
         public void Deselect()
         {
-            BorderColor = Color.FromRgb(230, 57, 70);
+            BorderColor = (Color)Application.Current.Resources["AlternativeBrightColor"];
             ForegroundOpacity = 0;
             BackgroundOpacity = 0;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 
 namespace MangaTL.Core
 {
@@ -26,6 +27,27 @@ namespace MangaTL.Core
             {
                 formatter.Serialize(fs, this);
             }
+        }
+
+        public void ExportText(string path)
+        {
+            var result = new StringBuilder();
+            foreach (var page in Pages)
+            {
+                foreach (var pageBubble in page.Bubbles)
+                {
+                    result.Append(pageBubble.TextContent);
+                    result.Append("\n");
+                }
+
+                result.Append("\n");
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            var stream = File.CreateText(path);
+            stream.Write(result.ToString());
+            stream.Flush();
+            stream.Close();
         }
 
         public static Chapter Load(string path)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
@@ -194,7 +195,7 @@ namespace MangaTL.ViewModels
             if (string.IsNullOrWhiteSpace(currentChapterSavePath))
                 return SaveAsDialog();
 
-            SaveFile(currentChapterSavePath);
+            SaveTlmFile(currentChapterSavePath);
             return true;
         }
 
@@ -242,17 +243,28 @@ namespace MangaTL.ViewModels
                 DefaultExt = "tlm",
                 Title = "Save",
                 OverwritePrompt = true,
-                Filter = "TLM files (*.tlm) | *.tlm"
+                Filter = "TLM files (*.tlm) | *.tlm|txt files(*.txt)| *.txt"
             };
 
             if (saveFileDialog.ShowDialog() != true)
                 return false;
 
-            SaveFile(saveFileDialog.FileName);
+            switch (Path.GetExtension(saveFileDialog.FileName).ToLower())
+            {
+                case ".tlm":
+                    SaveTlmFile(saveFileDialog.FileName);
+                    break;
+                case ".txt":
+                    chapter.ExportText(saveFileDialog.FileName);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
             return true;
         }
 
-        private void SaveFile(string path)
+        private void SaveTlmFile(string path)
         {
             currentChapterSavePath = path;
             Title = Path.GetFileNameWithoutExtension(path);
