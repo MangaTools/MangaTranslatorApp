@@ -17,7 +17,13 @@ namespace MangaTL.ViewModels
         public ToolsMenuVM(ImageViewerVM imageVM, StyleControlVM styeVM)
         {
             _tools = new ObservableCollection<ToolControlVM>
-                {new HandTool(imageVM), new ResizeTool(imageVM), new TextTool(imageVM), new PointTool(imageVM, styeVM)};
+            {
+                new HandTool(imageVM),
+                new ResizeTool(imageVM),
+                new TextTool(imageVM),
+                new PointTool(imageVM, styeVM),
+                new OrderTool(imageVM)
+            };
         }
     }
 }

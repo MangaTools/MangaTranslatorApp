@@ -155,6 +155,11 @@ namespace MangaTL.ViewModels
             UpdateVisual();
         }
 
+        public void SetVisibleText(string newText)
+        {
+            Text = newText;
+        }
+
         public void SetNewText(string newText)
         {
             var oldText = GetBubble.TextContent;

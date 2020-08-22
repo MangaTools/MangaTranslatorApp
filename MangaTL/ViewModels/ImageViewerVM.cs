@@ -78,6 +78,8 @@ namespace MangaTL.ViewModels
             set => SetProperty(ref cursor, value);
         }
 
+        public bool HavePage => currentPage != null;
+
         public ImageViewerVM()
         {
             _scale = 1;
@@ -172,6 +174,33 @@ namespace MangaTL.ViewModels
             var p = new Point(X, Y);
             foreach (var pageBubble in page.Bubbles)
                 BubbleCollection.Add(new BubbleVM(pageBubble, _scale, p, this));
+        }
+
+        public void SetOrderText()
+        {
+            var textBubbles = currentPage.Bubbles.ToList();
+
+            foreach (var bubbleVm in BubbleCollection)
+            {
+                var index = currentPage.GetBubbleIndex(bubbleVm.GetBubble);
+                bubbleVm.SetVisibleText((index + 1).ToString());
+                bubbleVm.Select();
+            }
+        }
+
+        public void SetContentText()
+        {
+            foreach (var bubbleVm in BubbleCollection)
+            {
+                bubbleVm.SetVisibleText(bubbleVm.GetBubble.TextContent);
+                bubbleVm.Deselect();
+            }
+        }
+
+        public void ChangeBubbleOrder(BubbleVM bubble, bool up)
+        {
+            currentPage.ChangeBubbleOrder(bubble.GetBubble, up);
+            SetOrderText();
         }
 
         public (Point, double) GetData()

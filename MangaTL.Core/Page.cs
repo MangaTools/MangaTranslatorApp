@@ -40,6 +40,21 @@ namespace MangaTL.Core
             bubble.BubbleChanged -= OnBubbleChanged;
         }
 
+        public int GetBubbleIndex(TextBubble bubble)
+        {
+            return bubbles.IndexOf(bubble);
+        }
+
+        public void ChangeBubbleOrder(TextBubble bubble, bool up)
+        {
+            var index = GetBubbleIndex(bubble);
+            if (up && index + 1 == bubbles.Count || !up && index == 0)
+                return;
+            bubbles.RemoveAt(index);
+            var newIndex = index + (up ? 1 : -1);
+            bubbles.Insert(newIndex, bubble);
+        }
+
         private void OnBubbleChanged()
         {
             PageChanged?.Invoke();

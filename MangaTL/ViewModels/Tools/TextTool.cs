@@ -22,9 +22,11 @@ namespace MangaTL.ViewModels.Tools
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/TextIcon.png"));
         }
 
-        protected override void DoAction()
+        protected override void DoAction(MouseButton pressedButton)
         {
-            base.DoAction();
+            if(pressedButton != MouseButton.Left)
+                return;
+            base.DoAction(pressedButton);
             startPoint = imageVm.GetRelativePoint(MouseManager.MousePosition);
             bubble = imageVm.CreateBubble(new Rectangle((int) startPoint.X, (int) startPoint.Y, 0, 0));
             MouseManager.MouseMove += MouseMove;
@@ -50,9 +52,9 @@ namespace MangaTL.ViewModels.Tools
             UndoManager.RemoveLast(1);
         }
 
-        protected override void StopAction()
+        protected override void StopAction(MouseButton releasedButton)
         {
-            base.StopAction();
+            base.StopAction(releasedButton);
             MouseManager.MouseMove -= MouseMove;
             var rect = bubble.GetBubble.Rect;
             if (rect.Width * rect.Height < 1000)

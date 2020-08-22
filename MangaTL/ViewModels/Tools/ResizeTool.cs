@@ -31,15 +31,17 @@ namespace MangaTL.ViewModels.Tools
             imageVm.Cursor = "Arrow";
         }
 
-        protected override void DoAction()
+        protected override void DoAction(MouseButton pressedButton)
         {
-            base.DoAction();
+            if(pressedButton != MouseButton.Left)
+                return;
+            base.DoAction(pressedButton);
             MouseManager.MouseMove += Zoom;
         }
 
-        protected override void StopAction()
+        protected override void StopAction(MouseButton releasedButton)
         {
-            base.StopAction();
+            base.StopAction(releasedButton);
             MouseManager.MouseMove -= Zoom;
             first = true;
         }

@@ -17,6 +17,8 @@ namespace MangaTL.ViewModels
 
         private string _toolTip;
 
+        public MouseButton currentPressedButton;
+
         public ICommand PressCommand
         {
             get => _pressCommand;
@@ -65,18 +67,21 @@ namespace MangaTL.ViewModels
 
             MouseManager.MousePressed += args =>
             {
-                if (!Pressed || args.ChangedButton != MouseButton.Left)
+                if (!Pressed)
                     return;
                 if (MouseManager.CurrentMouseOver == ControlType.ImageViewer)
-                    DoAction();
+                {
+                    currentPressedButton = args.ChangedButton;
+                    DoAction(args.ChangedButton);
+                }
             };
 
             MouseManager.MouseReleased += args =>
             {
-                if (!InAction || args.ChangedButton != MouseButton.Left)
+                if (!InAction || args.ChangedButton != currentPressedButton)
                     return;
                 if (args.ButtonState == MouseButtonState.Released)
-                    StopAction();
+                    StopAction(args.ChangedButton);
             };
         }
 
@@ -88,12 +93,12 @@ namespace MangaTL.ViewModels
         {
         }
 
-        protected virtual void DoAction()
+        protected virtual void DoAction(MouseButton pressedButton)
         {
             InAction = true;
         }
 
-        protected virtual void StopAction()
+        protected virtual void StopAction(MouseButton releasedButton)
         {
             InAction = false;
         }

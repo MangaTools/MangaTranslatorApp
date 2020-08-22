@@ -23,9 +23,11 @@ namespace MangaTL.ViewModels.Tools
                 new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/PointIcon.png"));
         }
 
-        protected override void DoAction()
+        protected override void DoAction(MouseButton pressedButton)
         {
-            base.DoAction();
+            if(pressedButton != MouseButton.Left)
+                return;
+            base.DoAction(pressedButton);
             Click();
         }
 
