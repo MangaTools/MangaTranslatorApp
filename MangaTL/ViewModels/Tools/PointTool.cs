@@ -75,6 +75,11 @@ namespace MangaTL.ViewModels.Tools
             {
                 Clipboard.SetText(selectedBubble.Text);
             }
+            else if (data.Contains(Key.LeftCtrl) && data.Contains(Key.V))
+            {
+                var text = Clipboard.GetText();
+                selectedBubble.SetNewText(text);
+            }
         }
     }
 }
