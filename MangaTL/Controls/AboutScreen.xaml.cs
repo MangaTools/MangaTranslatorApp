@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MangaTL.ViewModels;
 
 namespace MangaTL.Controls
 {
@@ -22,6 +23,7 @@ namespace MangaTL.Controls
         public AboutScreen()
         {
             InitializeComponent();
+            DataContext = new AboutScreenVM();
         }
     }
 }

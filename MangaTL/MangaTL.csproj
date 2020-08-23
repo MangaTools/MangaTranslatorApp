@@ -103,6 +103,7 @@
     <Compile Include="Managers\ShortcutManager.cs" />
     <Compile Include="Managers\ToolManager.cs" />
     <Compile Include="Managers\UndoManager.cs" />
+    <Compile Include="ViewModels\AboutScreenVM.cs" />
     <Compile Include="ViewModels\BubbleVM.cs" />
     <Compile Include="ViewModels\ImageViewerVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
