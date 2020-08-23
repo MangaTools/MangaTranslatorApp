@@ -174,11 +174,13 @@ namespace MangaTL.ViewModels
             var p = new Point(X, Y);
             foreach (var pageBubble in page.Bubbles)
                 BubbleCollection.Add(new BubbleVM(pageBubble, _scale, p, this));
+            PageLoaded?.Invoke();
         }
 
         public void SetOrderText()
         {
-            var textBubbles = currentPage.Bubbles.ToList();
+            if (currentPage == null)
+                return;
 
             foreach (var bubbleVm in BubbleCollection)
             {
@@ -199,6 +201,8 @@ namespace MangaTL.ViewModels
 
         public void ChangeBubbleOrder(BubbleVM bubble, bool up)
         {
+            if (currentPage == null)
+                return;
             currentPage.ChangeBubbleOrder(bubble.GetBubble, up);
             SetOrderText();
         }
@@ -224,5 +228,7 @@ namespace MangaTL.ViewModels
             BubbleCollection.Remove(bubble);
             currentPage.RemoveBubble(bubble.GetBubble);
         }
+
+        public event Action PageLoaded;
     }
 }

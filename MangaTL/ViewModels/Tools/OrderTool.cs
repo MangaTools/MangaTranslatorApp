@@ -17,13 +17,20 @@ namespace MangaTL.ViewModels.Tools
         protected override void Activated()
         {
             imageVm.SetOrderText();
+            imageVm.PageLoaded += SetText;
             base.Activated();
         }
 
         protected override void Deactivated()
         {
+            imageVm.PageLoaded -= SetText;
             imageVm.SetContentText();
             base.Deactivated();
+        }
+
+        private void SetText()
+        {
+            imageVm.SetOrderText();
         }
 
         protected override void DoAction(MouseButton pressedButton)
