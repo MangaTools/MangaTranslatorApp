@@ -518,8 +518,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MangaTL"
-        "ProductCode" = "8:{AD3FD5E9-0FE1-4DE7-B1D9-22E24FE7DC1E}"
-        "PackageCode" = "8:{DBD08398-657C-4A0E-99A6-1217F121DE5B}"
+        "ProductCode" = "8:{5881CFD7-6051-4814-ABCC-623FEEB41999}"
+        "PackageCode" = "8:{DAA04921-8817-492C-9E13-B1795DAEEB96}"
         "UpgradeCode" = "8:{E442AAA0-2C4A-4E2C-AD46-EBA8A6E72DCB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using MangaTL.Managers;
 
 namespace MangaTL.ViewModels.Tools
@@ -12,20 +14,22 @@ namespace MangaTL.ViewModels.Tools
         public OrderTool(ImageViewerVM vm) : base(new List<Key> {Key.O}, new List<Key>())
         {
             imageVm = vm;
+            ToolTip = "Change bubble order(O)";
+
+            ImageSource =
+                new BitmapImage(new Uri("pack://application:,,,/MangaTL.Core;component/Resources/OrderIcon.png"));
         }
 
         protected override void Activated()
         {
             imageVm.SetOrderText();
             imageVm.PageLoaded += SetText;
-            base.Activated();
         }
 
         protected override void Deactivated()
         {
             imageVm.PageLoaded -= SetText;
             imageVm.SetContentText();
-            base.Deactivated();
         }
 
         private void SetText()
