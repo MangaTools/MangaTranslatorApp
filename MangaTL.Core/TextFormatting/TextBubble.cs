@@ -20,12 +20,13 @@ namespace MangaTL.Core
                 BubbleChanged?.Invoke();
             }
         }
+
         public string TextContent
         {
             get => textContent;
             set
             {
-                if(textContent == value)
+                if (textContent == value)
                     return;
                 textContent = value;
                 BubbleChanged?.Invoke();

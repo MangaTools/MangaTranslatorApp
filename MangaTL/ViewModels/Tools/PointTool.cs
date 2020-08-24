@@ -25,7 +25,7 @@ namespace MangaTL.ViewModels.Tools
 
         protected override void DoAction(MouseButton pressedButton)
         {
-            if(pressedButton != MouseButton.Left)
+            if (pressedButton != MouseButton.Left)
                 return;
             base.DoAction(pressedButton);
             Click();
@@ -41,6 +41,7 @@ namespace MangaTL.ViewModels.Tools
                 styleVm.Clear();
                 return;
             }
+
             selectedBubble.Select();
 
             styleVm.SetBubble(selectedBubble);

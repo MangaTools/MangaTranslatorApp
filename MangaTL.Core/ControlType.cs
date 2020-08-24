@@ -5,6 +5,6 @@
         ImageViewer,
         ToolsPanel,
         PropertiesPanel,
-        Null,
+        Null
     }
 }

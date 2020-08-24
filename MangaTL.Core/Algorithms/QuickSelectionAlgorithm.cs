@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MangaTL.Core.Algorithms
@@ -28,7 +27,7 @@ namespace MangaTL.Core.Algorithms
                 var rect = new Rectangle(0, 0, width, height);
                 var bmpData = bitmap.LockBits(rect, ImageLockMode.WriteOnly, bitmap.PixelFormat);
 
-                bytesPerPixel = (byte)(Image.GetPixelFormatSize(bitmap.PixelFormat) / 8);
+                bytesPerPixel = (byte) (Image.GetPixelFormatSize(bitmap.PixelFormat) / 8);
                 horizontalLineLength = bmpData.Stride;
 
                 var bytes = Math.Abs(horizontalLineLength) * height;
@@ -93,24 +92,23 @@ namespace MangaTL.Core.Algorithms
             }
 
             return (result, new Rectangle(minX, minY, maxX - minX, maxY - minY));
-
         }
 
-        private static Task<(List<Point> Points, Rectangle Bounds)> GetPointsAsync(Bitmap bitmap, Point startPoint, int threshold)
+        private static Task<(List<Point> Points, Rectangle Bounds)> GetPointsAsync(Bitmap bitmap,
+            Point startPoint,
+            int threshold)
         {
             return Task.Run(() => GetPoints(bitmap, startPoint, threshold));
         }
 
-        internal static async Task<Rectangle> GetRectangle(Bitmap bitmap ,Point position, int threshold)
+        internal static async Task<Rectangle> GetRectangle(Bitmap bitmap, Point position, int threshold)
         {
-            var (imagePoints, bounds) = await QuickSelectionAlgorithm.GetPointsAsync(bitmap, position, threshold);
+            var (imagePoints, bounds) = await GetPointsAsync(bitmap, position, threshold);
 
             var matrix = new bool[bounds.Height + 1, bounds.Width + 1];
 
             foreach (var p in imagePoints)
-            {
                 matrix[p.Y - bounds.Y, p.X - bounds.X] = true;
-            }
             var rect = RectangleFinder.FindRectangle(matrix);
 
             return new Rectangle(rect.X + bounds.X, rect.Y + bounds.Y, rect.Width, rect.Height);

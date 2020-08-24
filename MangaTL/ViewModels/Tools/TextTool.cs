@@ -24,7 +24,7 @@ namespace MangaTL.ViewModels.Tools
 
         protected override void DoAction(MouseButton pressedButton)
         {
-            if(pressedButton != MouseButton.Left)
+            if (pressedButton != MouseButton.Left)
                 return;
             base.DoAction(pressedButton);
             startPoint = imageVm.GetRelativePoint(MouseManager.MousePosition);
@@ -58,9 +58,7 @@ namespace MangaTL.ViewModels.Tools
             MouseManager.MouseMove -= MouseMove;
             var rect = bubble.GetBubble.Rect;
             if (rect.Width * rect.Height < 1000)
-            {
                 imageVm.RemoveBubble(bubble);
-            }
         }
     }
 }

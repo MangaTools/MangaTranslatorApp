@@ -46,7 +46,7 @@ namespace MangaTL.Core.Algorithms
                     if (square < (i - d[j]) * (d2[j] - d1[j] - 1))
                     {
                         square = (i - d[j]) * (d2[j] - d1[j] - 1);
-                        resRect = new Rectangle(d1[j] + 1, d[j]+1, d2[j] - d1[j] - 1, i - d[j]);
+                        resRect = new Rectangle(d1[j] + 1, d[j] + 1, d2[j] - d1[j] - 1, i - d[j]);
                     }
             }
 

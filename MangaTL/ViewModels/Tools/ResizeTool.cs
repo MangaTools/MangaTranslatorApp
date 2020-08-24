@@ -33,7 +33,7 @@ namespace MangaTL.ViewModels.Tools
 
         protected override void DoAction(MouseButton pressedButton)
         {
-            if(pressedButton != MouseButton.Left)
+            if (pressedButton != MouseButton.Left)
                 return;
             base.DoAction(pressedButton);
             MouseManager.MouseMove += Zoom;

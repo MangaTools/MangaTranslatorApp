@@ -1,9 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows;
-using System.Windows.Input;
 using MangaTL.Core;
 using MangaTL.Managers;
-using Prism.Commands;
 using Prism.Mvvm;
 using Color = System.Windows.Media.Color;
 using Point = System.Windows.Point;
@@ -106,7 +104,7 @@ namespace MangaTL.ViewModels
             ForegroundOpacity = 0;
             BackgroundOpacity = 0;
             FontSize = FontSizes;
-            BorderColor = (Color)Application.Current.Resources["AlternativeBrightColor"];
+            BorderColor = (Color) Application.Current.Resources["AlternativeBrightColor"];
 
             Text = bubbleModel.TextContent;
             UpdateVisual(scale, offset);
@@ -114,14 +112,14 @@ namespace MangaTL.ViewModels
 
         public void Select()
         {
-            BorderColor = (Color)Application.Current.Resources["DarkBackgroundColor"];
+            BorderColor = (Color) Application.Current.Resources["DarkBackgroundColor"];
             ForegroundOpacity = 1;
             BackgroundOpacity = 0.75;
         }
 
         public void Deselect()
         {
-            BorderColor = (Color)Application.Current.Resources["AlternativeBrightColor"];
+            BorderColor = (Color) Application.Current.Resources["AlternativeBrightColor"];
             ForegroundOpacity = 0;
             BackgroundOpacity = 0;
         }

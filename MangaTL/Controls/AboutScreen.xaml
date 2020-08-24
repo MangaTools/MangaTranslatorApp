@@ -16,11 +16,13 @@
                 <TextBlock Text="MangaTL" Foreground="{StaticResource FontLightBrush}" FontSize="48"
                            VerticalAlignment="Center" />
             </DockPanel>
-            
-            <Rectangle Margin="10,5" Height="1" Fill="{StaticResource LightBackgroundBrush}" Stroke="{DynamicResource LightBackgroundBrush}" />
-            <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,0" Text="ShaDream"/>
+
+            <Rectangle Margin="10,5" Height="1" Fill="{StaticResource LightBackgroundBrush}"
+                       Stroke="{DynamicResource LightBackgroundBrush}" />
+            <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,0"
+                       Text="ShaDream" />
             <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,0">
-                <Run Text="{Binding Version, Mode=OneWay}"/>
+                <Run Text="{Binding Version, Mode=OneWay}" />
                 2020
             </TextBlock>
         </StackPanel>

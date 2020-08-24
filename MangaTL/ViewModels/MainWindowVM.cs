@@ -298,9 +298,7 @@ namespace MangaTL.ViewModels
         {
             isChapterDirty = true;
             if (!Title.EndsWith("*"))
-            {
                 Title += "*";
-            }
         }
 
         private void NextPage()

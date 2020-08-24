@@ -64,19 +64,23 @@
                               IsEnabled="{Binding CanUndo, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Help">
-                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Help screen" Command="{Binding HelpScreenCommand}"/>
-                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="About" Command="{Binding AboutCommand}"/>
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Help screen"
+                              Command="{Binding HelpScreenCommand}" />
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="About" Command="{Binding AboutCommand}" />
                 </MenuItem>
             </Menu>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Text="Page" Margin="2.5,0" />
-                <TextBox MinWidth="25" TextAlignment="Center" FontSize="15" Background="{StaticResource FontLightBrush}" Foreground="{StaticResource DarkBackgroundBrush}" Margin="2.5,0" Text="{Binding CurrentPage, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox MinWidth="25" TextAlignment="Center" FontSize="15"
+                         Background="{StaticResource FontLightBrush}" Foreground="{StaticResource DarkBackgroundBrush}"
+                         Margin="2.5,0" Text="{Binding CurrentPage, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
                         <interactions:TextBoxBehavior />
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Margin="2.5,0" Text="of" />
-                <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Margin="2.5,0" Text="{Binding Pages}" />
+                <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Margin="2.5,0"
+                           Text="{Binding Pages}" />
             </StackPanel>
         </DockPanel>
 

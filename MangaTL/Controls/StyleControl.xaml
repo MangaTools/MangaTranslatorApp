@@ -73,7 +73,8 @@
                 Background="{x:Null}"
                 Foreground="{StaticResource FontLightBrush}" />
 
-            <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="25,0"
+            <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
+                     FontSize="16" Margin="25,0" IsUndoEnabled="True"
                      Background="{StaticResource FontLightBrush}"
                      Foreground="{StaticResource DarkBackgroundBrush}"
                      TextWrapping="Wrap" TextAlignment="Left">
