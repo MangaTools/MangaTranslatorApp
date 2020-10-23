@@ -56,6 +56,8 @@
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save" Command="{Binding SaveCommand}" />
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Save as..."
                               Command="{Binding SaveAsCommand}" />
+                    <MenuItem Foreground="{StaticResource BlackBrush}" Header="Import..."
+                              Command="{Binding ImportCommand}" />
                     <Separator />
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Exit" Command="{Binding ExitCommand}" />
                 </MenuItem>

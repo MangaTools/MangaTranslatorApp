@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Management;
 using System.Windows;
 using System.Windows.Input;
 using MangaTL.Controls;
@@ -98,6 +99,8 @@ namespace MangaTL.ViewModels
 
         public ICommand AboutCommand { get; }
 
+        public ICommand ImportCommand { get; }
+
 
         public MainWindowVM(Window window)
         {
@@ -144,6 +147,7 @@ namespace MangaTL.ViewModels
             UndoCommand = new DelegateCommand(UndoManager.Undo);
             AboutCommand = new DelegateCommand(ShowAboutWindow);
             HelpScreenCommand = new DelegateCommand(ShowHelpWindow);
+            ImportCommand = new DelegateCommand(ImportDialog);
 
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, () => SaveDialog());
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, () => SaveAsDialog());
@@ -151,6 +155,24 @@ namespace MangaTL.ViewModels
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Exit);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.N}, NewChapterDialog);
             ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Z}, UndoManager.Undo);
+        }
+
+        private void ImportDialog()
+        {
+            var importFileDialog = new OpenFileDialog
+            {
+                DefaultExt = "txt",
+                Title = "Import",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Multiselect = false,
+                Filter = "TXT files (*.txt) | *.txt"
+            };
+            if (importFileDialog.ShowDialog() == true)
+            {
+                chapter.ImportText(importFileDialog.FileName);
+                UpdatePage();
+            }
         }
 
         private void ShowHelpWindow()
@@ -309,6 +331,11 @@ namespace MangaTL.ViewModels
         private void PreviousPage()
         {
             CurrentPage--;
+        }
+
+        private void UpdatePage()
+        {
+            CurrentPage = currentPage;
         }
     }
 }

@@ -50,6 +50,20 @@ namespace MangaTL.Core
             stream.Close();
         }
 
+        public void ImportText(string path)
+        {
+            using (var input = new StreamReader(path))
+            {
+                foreach (var page in Pages)
+                {
+                    foreach (var pageBubble in page.Bubbles)
+                        pageBubble.TextContent = input.ReadLine();
+
+                    input.ReadLine();
+                }
+            }
+        }
+
         public static Chapter Load(string path)
         {
             var formatter = new BinaryFormatter();
