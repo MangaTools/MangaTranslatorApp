@@ -200,6 +200,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="NetSparkle_Ed25519.pub" />
     <None Include="packages.config" />
     <None Include="ProgramSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
