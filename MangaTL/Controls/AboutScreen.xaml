@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:MangaTL.ViewModels"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="About" Height="200" Width="450"
+        Title="About" Height="225" Width="450"
         d:DataContext="{d:DesignInstance {x:Type viewModels:AboutScreenVM} }">
     <Grid Background="{StaticResource DarkBackgroundBrush}">
         <StackPanel Orientation="Vertical">
@@ -19,11 +19,13 @@
 
             <Rectangle Margin="10,5" Height="1" Fill="{StaticResource LightBackgroundBrush}"
                        Stroke="{DynamicResource LightBackgroundBrush}" />
-            <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,0"
+            <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,5"
                        Text="ShaDream" />
             <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,0">
-                <Run Text="{Binding Version, Mode=OneWay}" />
-                2020
+                <Run BaselineAlignment="Center" Text="{Binding Version, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource FontLightBrush}" Margin="10,0">
+                <Run BaselineAlignment="Center" Text="{Binding BuildDate, Mode=OneWay}" />
             </TextBlock>
         </StackPanel>
     </Grid>

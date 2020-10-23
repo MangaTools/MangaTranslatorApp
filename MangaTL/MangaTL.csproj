@@ -94,6 +94,7 @@
     <Compile Include="Controls\HelpScreen.xaml.cs">
       <DependentUpon>HelpScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\BitmapImageExtesions.cs" />
     <Compile Include="Controls\NewChapterDialog.xaml.cs">
       <DependentUpon>NewChapterDialog.xaml</DependentUpon>
