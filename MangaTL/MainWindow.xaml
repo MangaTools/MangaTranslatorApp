@@ -48,8 +48,8 @@
             <Menu HorizontalAlignment="Left"
                   FontSize="14"
                   HorizontalContentAlignment="Stretch"
-                  Background="{StaticResource DarkBackgroundBrush}">
-                <MenuItem Foreground="{StaticResource FontLightBrush}" Height="25" Header="File">
+                  Background="{StaticResource DarkBackgroundBrush}" >
+                <MenuItem Foreground="{StaticResource FontLightBrush}" Height="25" Header="File" IsTabStop="False">
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="New Chapter"
                               Command="{Binding NewChapterCommand}" />
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Open" Command="{Binding OpenCommand}" />
@@ -61,11 +61,11 @@
                     <Separator />
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Exit" Command="{Binding ExitCommand}" />
                 </MenuItem>
-                <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Edit">
+                <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Edit" IsTabStop="False">
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Undo" Command="{Binding UndoCommand}"
                               IsEnabled="{Binding CanUndo, Mode=OneWay}" />
                 </MenuItem>
-                <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Help">
+                <MenuItem Foreground="{StaticResource FontLightBrush}" Header="Help" IsTabStop="False">
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="Help screen"
                               Command="{Binding HelpScreenCommand}" />
                     <MenuItem Foreground="{StaticResource BlackBrush}" Header="About" Command="{Binding AboutCommand}" />
@@ -73,7 +73,7 @@
             </Menu>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock FontSize="15" Foreground="{StaticResource FontLightBrush}" Text="Page" Margin="2.5,0" />
-                <TextBox MinWidth="25" TextAlignment="Center" FontSize="15"
+                <TextBox MinWidth="25" TextAlignment="Center" FontSize="15" IsTabStop="False"
                          Background="{StaticResource FontLightBrush}" Foreground="{StaticResource DarkBackgroundBrush}"
                          Margin="2.5,0" Text="{Binding CurrentPage, UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Behaviors>
@@ -98,7 +98,7 @@
                 <interactions:ClearFocusOnClickBehavior />
             </i:Interaction.Behaviors>
         </local:ImageViewer>
-        <local:ToolsMenu Grid.Row="0" Grid.Column="1" DataContext="{Binding Tools}" />
-        <controls:StyleControl Grid.Row="1" DataContext="{Binding Style}" Grid.Column="1" />
+        <local:ToolsMenu Grid.Row="0" Grid.Column="1" DataContext="{Binding Tools}" IsTabStop="False"/>
+        <controls:StyleControl Grid.Row="1" DataContext="{Binding Style}" Grid.Column="1" IsTabStop="False"/>
     </Grid>
 </Window>

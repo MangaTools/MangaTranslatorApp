@@ -19,7 +19,7 @@
                 <TextBlock Text="X" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="{StaticResource FontLightBrush}" />
 
-                <TextBox Text="{Binding X, FallbackValue=1024}" FontSize="16" Margin="0,0,50,0" TextAlignment="Center"
+                <TextBox Text="{Binding X, FallbackValue=1024}" FontSize="16" Margin="0,0,50,0" TextAlignment="Center" IsTabStop="False"
                          Background="{x:Null}" Foreground="{StaticResource FontLightBrush}" BorderBrush="{x:Null}">
                     <i:Interaction.Behaviors>
                         <interactions:TextBoxBehavior />
@@ -29,7 +29,7 @@
                 <TextBlock Text="Y" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="{StaticResource FontLightBrush}" />
 
-                <TextBox Text="{Binding Y, FallbackValue=560}"
+                <TextBox Text="{Binding Y, FallbackValue=560}" IsTabStop="False"
                          FontSize="16" TextAlignment="Center"
                          Background="{x:Null}" Foreground="{StaticResource FontLightBrush}"
                          BorderBrush="{x:Null}">
@@ -43,7 +43,7 @@
                 <TextBlock Text="W" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="{StaticResource FontLightBrush}" />
                 <TextBox
-                    Text="{Binding Width, FallbackValue=1024}"
+                    Text="{Binding Width, FallbackValue=1024}" IsTabStop="False"
                     FontSize="16" Margin="0,0,50,0"
                     TextAlignment="Center"
                     Background="{x:Null}"
@@ -57,7 +57,7 @@
                 <TextBlock Text="H" FontSize="16" Margin="0,0,5,0" TextAlignment="Center" Background="{x:Null}"
                            Foreground="{StaticResource FontLightBrush}" />
 
-                <TextBox Text="{Binding Height, FallbackValue=500}" FontSize="16" TextAlignment="Center"
+                <TextBox Text="{Binding Height, FallbackValue=500}" FontSize="16" TextAlignment="Center" IsTabStop="False"
                          Background="{x:Null}" Foreground="{StaticResource FontLightBrush}" BorderBrush="{x:Null}">
                     <i:Interaction.Behaviors>
                         <interactions:TextBoxBehavior />
