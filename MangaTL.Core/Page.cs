@@ -55,6 +55,18 @@ namespace MangaTL.Core
             bubbles.Insert(newIndex, bubble);
         }
 
+        public TextBubble GetPrevious(TextBubble current)
+        {
+            var index = bubbles.IndexOf(current);
+            return index == 0 ? current : bubbles[index - 1];
+        }
+
+        public TextBubble GetNext(TextBubble current)
+        {
+            var index = bubbles.IndexOf(current);
+            return index == bubbles.Count - 1 ? current : bubbles[index + 1];
+        }
+
         private void OnBubbleChanged()
         {
             PageChanged?.Invoke();

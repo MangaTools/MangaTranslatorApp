@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+
 using MangaTL.Managers;
 
 namespace MangaTL.ViewModels.Tools
@@ -13,8 +14,8 @@ namespace MangaTL.ViewModels.Tools
         private readonly StyleControlVM styleVm;
         private BubbleVM selectedBubble;
 
-        public PointTool(ImageViewerVM imageVM, StyleControlVM styleVM) : base(new List<Key> {Key.P},
-                                                                               new List<Key> {Key.LeftCtrl})
+        public PointTool(ImageViewerVM imageVM, StyleControlVM styleVM) : base(new List<Key> { Key.P },
+                                                                               new List<Key> { Key.LeftCtrl })
         {
             imageVm = imageVM;
             styleVm = styleVM;
@@ -81,6 +82,21 @@ namespace MangaTL.ViewModels.Tools
                 var text = Clipboard.GetText();
                 selectedBubble.SetNewText(text);
             }
+            else if (data.Contains(Key.LeftCtrl) && data.Contains(Key.Tab))
+            {
+                selectedBubble?.Deselect();
+                selectedBubble = imageVm.GetPrevious(selectedBubble);
+                selectedBubble.Select();
+                styleVm.SetBubble(selectedBubble);
+            }
+            else if (data.Contains(Key.Tab))
+            {
+                selectedBubble?.Deselect();
+                selectedBubble = imageVm.GetNext(selectedBubble);
+                selectedBubble.Select();
+                styleVm.SetBubble(selectedBubble);
+            }
+
         }
     }
 }

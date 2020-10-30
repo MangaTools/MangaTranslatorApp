@@ -229,6 +229,18 @@ namespace MangaTL.ViewModels
             currentPage.RemoveBubble(bubble.GetBubble);
         }
 
+        public BubbleVM GetPrevious(BubbleVM current)
+        {
+            var bubble = currentPage.GetPrevious(current.GetBubble);
+            return BubbleCollection.First(x => x.GetBubble == bubble);
+        }
+
+        public BubbleVM GetNext(BubbleVM current)
+        {
+            var bubble = currentPage.GetNext(current.GetBubble);
+            return BubbleCollection.First(x => x.GetBubble == bubble);
+        }
+
         public event Action PageLoaded;
     }
 }
