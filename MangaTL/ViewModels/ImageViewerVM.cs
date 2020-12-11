@@ -141,8 +141,8 @@ namespace MangaTL.ViewModels
         {
             var oldSize = new Size(Width, Height);
 
-            var newWidth = Image.Width * _scale;
-            var newHeight = Image.Height * _scale;
+            var newWidth = Image.PixelWidth * _scale;
+            var newHeight = Image.PixelHeight * _scale;
 
             var centerPosition = new Point(X, Y);
 
@@ -167,8 +167,8 @@ namespace MangaTL.ViewModels
             currentPage = page;
             _scale = 1;
             Image = page.TranslateImage.ConvertToBitmapImage();
-            Width = Image.Width;
-            Height = Image.Height;
+            Width = Image.PixelWidth;
+            Height = Image.PixelHeight;
             X = Y = 0;
             BubbleCollection.Clear();
             var p = new Point(X, Y);
