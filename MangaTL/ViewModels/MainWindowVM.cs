@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Windows;
 using System.Windows.Input;
+
 using MangaTL.Controls;
 using MangaTL.Core;
 using MangaTL.Managers;
+
 using Microsoft.Win32;
+
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -101,6 +105,8 @@ namespace MangaTL.ViewModels
 
         public ICommand ImportCommand { get; }
 
+        public ICommand CalculateCommand { get; }
+
 
         public MainWindowVM(Window window)
         {
@@ -148,13 +154,22 @@ namespace MangaTL.ViewModels
             AboutCommand = new DelegateCommand(ShowAboutWindow);
             HelpScreenCommand = new DelegateCommand(ShowHelpWindow);
             ImportCommand = new DelegateCommand(ImportDialog);
+            CalculateCommand = new DelegateCommand(CalculateDialog);
 
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.S}, () => SaveDialog());
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.LeftShift, Key.S}, () => SaveAsDialog());
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.O}, OpenDialog);
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Q}, Exit);
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.N}, NewChapterDialog);
-            ShortcutManager.AddShortcut(new List<Key> {Key.LeftCtrl, Key.Z}, UndoManager.Undo);
+            ShortcutManager.AddShortcut(new List<Key> { Key.LeftCtrl, Key.S }, () => SaveDialog());
+            ShortcutManager.AddShortcut(new List<Key> { Key.LeftCtrl, Key.LeftShift, Key.S }, () => SaveAsDialog());
+            ShortcutManager.AddShortcut(new List<Key> { Key.LeftCtrl, Key.O }, OpenDialog);
+            ShortcutManager.AddShortcut(new List<Key> { Key.LeftCtrl, Key.Q }, Exit);
+            ShortcutManager.AddShortcut(new List<Key> { Key.LeftCtrl, Key.N }, NewChapterDialog);
+            ShortcutManager.AddShortcut(new List<Key> { Key.LeftCtrl, Key.Z }, UndoManager.Undo);
+        }
+
+        private void CalculateDialog()
+        {
+            var text = $"Bubbles: {chapter.Pages.Sum(x => x.Bubbles.Count)} " +
+                        $"Words: {chapter.Pages.Sum(x => x.Bubbles.Sum(y => y.TextContent.Split(' ').Count()))} " +
+                        $"Characters: {chapter.Pages.Sum(x => x.Bubbles.Sum(y => y.TextContent.Length))}";
+            MessageBox.Show(text);
         }
 
         private void ImportDialog()
